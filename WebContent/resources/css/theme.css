@@ -1,0 +1,256 @@
+		body {
+			/*  padding-top: 70px;*/
+			/*  padding-bottom: 30px;*/
+			min-height: 80px;
+		}
+
+		.theme-dropdown .dropdown-menu {
+			position: static;
+			display: block;
+			margin-bottom: 20px;
+		}
+
+		.theme-showcase > p > .btn {
+			margin: 5px 0;
+		}
+
+		.theme-showcase .navbar .container {
+			width: auto;
+		}
+
+	</* style */>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
+
+		.container {
+			max-width: 100%;
+			width: 100%;
+		}
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem;
+            }
+			max-width: 100%;
+			max-height: 100%;
+			border: 0;
+        }
+
+        #map {
+            min-height: 550px;
+            max-height: 550px;
+			z-index: 0;
+        }
+
+        .slider {
+            -webkit-appearance: none;
+            width: 100%;
+            height: 25px;
+            background: #d3d3d3;
+            outline: none;
+            opacity: 0.7;
+            -webkit-transition: .2s;
+            transition: opacity .2s;
+            border-radius: 12px;
+        }
+
+        .slider::webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 40px;
+            width: 40px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .slider:hover {
+            opacity: 1;
+        }
+
+        .form-row {
+            /* Checkbox text */
+            font-size: 60%;
+            display: inline;
+        }
+
+        /* Blue */
+        .info {
+            color: dodgerblue;
+        }
+
+        .info:hover {
+            background: #1362a1;
+            color: white;
+        }
+
+        #mySidenav a {
+            position: absolute;
+            left: -18px;
+            transition: 0.3s;
+            padding: 15px;
+            width: 100px;
+            text-decoration: none;
+            font-size: 20px;
+            color: white;
+            border-radius: 0 10px 10px 0;
+            ;
+        }
+
+        #mySidenav a:hover {
+            left: 0;
+        }
+
+        #phase0 {
+            top: 80px;
+            background-color: #064ea1;
+        }
+
+        #phase1 {
+            top: 140px;
+            background-color: #318ef7;
+        }
+
+        .sidepanel {
+            width: 0;
+            position: fixed;
+            z-index: 10000;
+            height: 600px;
+            top: 0;
+            left: 0;
+            background-color: #cfe3fa;
+            overflow-x: hidden;
+            transition: 0.5s;
+            padding-top: 0;
+        }
+
+        .sidepanel a, .dropdown-btn {
+            padding: 8px 8px 8px 32px;
+            text-decoration: none;
+            font-size: 20px;
+            color: #818181;
+            display: block;
+            transition: 0.3s;
+			cursor: pointer;
+			outline: none;
+        }
+		
+		/* Add an active class to the active dropdown button */
+		.active {
+			background-color: blue;
+			color: white;
+		}
+
+		/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+		.dropdown-container {
+			display: none;
+			background-color: #d2e9fa;
+			padding-left: 8px;
+		}
+
+        .sidepanel a:hover {
+            color: #f1f1f1;
+        }
+
+        .sidepanel .closebtn {
+            position: absolute;
+            top: 0;
+            right: 25px;
+            font-size: 36px;
+        }
+
+        .openbtn {
+            font-size: 20px;
+            cursor: pointer;
+            background-color: #111;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+        }
+
+        .openbtn:hover {
+            background-color: #444;
+        }
+
+
+        .site-header {
+            background-color: #a0d0fa;
+			z-index: 0;
+        }
+
+        .site-header a {
+            color: #1362a1;
+            transition: ease-in-out color .15s;
+        }
+
+        .site-header a:hover {
+            color: dodgerblue;
+            text-decoration: none;
+        }
+
+        .nav-masthead .active {
+            color: #fff;
+        }
+
+        .nav-masthead .nav-link+.nav-link {
+            margin-left: 3rem;
+        }
+
+        .nav-masthead .nav-link {
+            padding: 1.5rem 0;
+            font-weight: 400;
+            color: #1362a1;
+            background-color: transparent;
+            border-bottom: .25rem solid transparent;
+        }
+		
+		body {font-family: Arial, Helvetica, sans-serif;}
+		* {box-sizing: border-box;}
+
+
+		table {
+			border-collapse: collapse;
+			border-spacing: 0;
+			width: 100%;
+			border: 1px solid #ddd;
+		}
+
+		th, td {
+			text-align: left;
+			padding: 8px;
+		}
+
+		tr:nth-child(even){background-color: #d1e6ff}
+		tr:nth-child(odd){background-color: #d1e6ff}
+
+		/* Modal Content */
+		.modal-content {
+			display: none; /* Hidden by default */
+			position: absolute; /* Stay in place */
+			background-color: #fefefe;
+			margin: auto;
+			padding: 20px;
+			border: 1px solid #888;
+			width: 80%;
+			overflow: auto; /* Enable scroll if needed */
+		}
+
+		/* The Close Button */
+		.close {
+			color: #aaaaaa;
+			float: right;
+			font-size: 28px;
+			font-weight: bold;
+		}
+
+		.close:hover,
+		.close:focus {
+			color: #000;
+			text-decoration: none;
+			cursor: pointer;
+		}
+    /* </style> */
