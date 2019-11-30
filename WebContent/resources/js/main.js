@@ -65,6 +65,21 @@
 
       }
       
+      function checked_Election(){
+
+    	    var e =document.getElementsByClassName("phase0_electionTerm");
+    	    var selectedlist=[];
+    	   var m;
+    	   
+    	    for(m=0; m<e.length; m++)       
+    	    {
+    	        if(e[m].type=='checkbox' && e[m].checked==true){         
+    	            selectedlist+=e[m].id+"\n";
+    	         }
+    	    }
+    	   console.log(selectedlist);
+    	}
+      
       
         function openNav() {
             document.getElementById("mySidepanel").style.width = "400px";
