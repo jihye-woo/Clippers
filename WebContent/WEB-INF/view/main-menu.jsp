@@ -77,9 +77,9 @@
                                 </header>
                                 <form>
                                     <br>
-                                    <input class="phase0_electionTerm" type="checkbox" name="16_congressional" id="16_congressional" onclick="checked_Election()">2016 Congressional<br>
-                                    <input class="phase0_electionTerm" type="checkbox" name="18_congressional" id="18_congressional" onclick="checked_Election()">2018 Congressional<br>
-                                    <input class="phase0_electionTerm" type="checkbox" name="18_presidential" id="18_presidential" onclick="checked_Election()">2016 Presidential<br><br>
+                                    <input class="phase0_electionTerm" type="checkbox" name="16_congressional" id="16_congressional" onclick="checked_electionTerm()">2016 Congressional<br>
+                                    <input class="phase0_electionTerm" type="checkbox" name="18_congressional" id="18_congressional" onclick="checked_electionTerm()">2018 Congressional<br>
+                                    <input class="phase0_electionTerm" type="checkbox" name="18_presidential" id="18_presidential" onclick="checked_electionTerm()">2016 Presidential<br><br>
                                 </form>
                             </div>
                         </div>

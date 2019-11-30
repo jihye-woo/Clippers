@@ -7,8 +7,25 @@
       var densityNY = statesData.features[1].properties.density;
       var StateNameWC = statesData.features[2].properties.name;
       var densityWC = statesData.features[2].properties.density;
-      
+      var electionTerms = [];
       var btn_phase0 = document.getElementById("phase0_button");
+      
+      function checked_electionTerm(){
+
+     	   var selectedValues = document.getElementsByClassName("phase0_electionTerm");
+     	   var selectedList=[];
+     	   var index;
+     	   
+     	    for(index=0; index < selectedValues.length; index++)       
+     	    {
+     	        if(selectedValues[index].type=='checkbox' 
+     	        	&& selectedValues[index].checked==true){     
+     	        	selectedList.push(selectedValues[index].id);
+     	         }
+     	    }
+     	    
+     	   electionTerms = selectedList;
+     	}
       
       btn_phase0.onclick = function(props) {
     	  
@@ -18,8 +35,10 @@
     			  "phase0_population_min" : document.getElementById("phase0_population_min").value,
         		  "phase0_population_max" : document.getElementById("phase0_population_max").value,
         		  "phase0_vote_min" : document.getElementById("phase0_vote_min").value,
-        		  "phase0_vote_max" : document.getElementById("phase0_vote_max").value	}
-    	  
+        		  "phase0_vote_max" : document.getElementById("phase0_vote_max").value,
+        		  "electionTerms" : electionTerms
+    	  		}
+    	  			
 			$.ajax({
 	 			type : "POST",
 	 			contentType : "application/json",
@@ -65,20 +84,7 @@
 
       }
       
-      function checked_Election(){
-
-    	    var e =document.getElementsByClassName("phase0_electionTerm");
-    	    var selectedlist=[];
-    	   var m;
-    	   
-    	    for(m=0; m<e.length; m++)       
-    	    {
-    	        if(e[m].type=='checkbox' && e[m].checked==true){         
-    	            selectedlist+=e[m].id+"\n";
-    	         }
-    	    }
-    	   console.log(selectedlist);
-    	}
+      
       
       
         function openNav() {

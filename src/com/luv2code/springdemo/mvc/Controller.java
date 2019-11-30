@@ -3,6 +3,7 @@ package com.luv2code.springdemo.mvc;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
@@ -36,6 +37,24 @@ public class Controller {
 			Float phase0_population_max =  Float.valueOf((String) jsonObject.get("phase0_population_max"));
 			Float phase0_vote_min = Float.valueOf((String)jsonObject.get("phase0_vote_min"));
 			Float phase0_vote_max = Float.valueOf((String)jsonObject.get("phase0_vote_max"));
+			
+			JSONArray electionTerms_arr = (JSONArray) jsonObject.get("electionTerms");
+			
+			
+			ArrayList<String> electionTerms = new ArrayList<String>();     
+			JSONArray jsonArray = (JSONArray) electionTerms_arr; 
+			if (jsonArray != null) { 
+			   int len = jsonArray.size();
+			   for (int i=0;i<len;i++){ 
+				   electionTerms.add(jsonArray.get(i).toString());
+			   } 
+			}
+			System.out.println(electionTerms);
+			
+//			for (int i=0; i<electionTerms_arr.length(); i++) {
+//				electionTerms.add( electionTerms_arr.getString(i) );
+//			}
+			
 			
 			
 			
