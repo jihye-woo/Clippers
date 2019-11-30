@@ -94,7 +94,8 @@
 
                             <form method="post">
                                 <div data-role="rangeslider" data-mini="true">
-                                    <input type="range" name="phase0_population_val" id="phase0_population_val" value="80" min="0" max="100">
+									<input type="range" name="phase0_population_val" id="phase0_population_min" value="20" min="0" max="100">
+                                    <input type="range" name="phase0_population_val" id="phase0_population_max" value="80" min="0" max="100">
                                 </div>
                             </form>
 
