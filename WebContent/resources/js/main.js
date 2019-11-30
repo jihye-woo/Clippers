@@ -11,44 +11,51 @@
       var btn_phase0 = document.getElementById("phase0_button");
       
       btn_phase0.onclick = function(props) {
-     
-    	  var developerData = getSelectedState(props);
+    	  
+    	  var stateData = getSelectedState(props);
+    	  var phase0_data = {
+    			  "stateName" : stateData, 
+    			  "phase0_population_min" : document.getElementById("phase0_population_min").value,
+        		  "phase0_population_max" : document.getElementById("phase0_population_max").value,
+        		  "phase0_vote_min" : document.getElementById("phase0_vote_min").value,
+        		  "phase0_vote_max" : document.getElementById("phase0_vote_max").value	}
+    	  
 			$.ajax({
 	 			type : "POST",
 	 			contentType : "application/json",
-	 			url : "/spring-mvc-demo/api/getState",
-	 			data : JSON.stringify(developerData),
+	 			url : "/spring-mvc-demo/controller/phase0_data",
+	 			data : JSON.stringify(phase0_data),
+	 			async: false,
 	 			dataType : 'json',		
 	 			success : function(data) {
 	 				console.log(data);
 	 			}
 	 		});
 			
-    	  
       }
       
       function getSelectedState(props){
-    	  var data = {"stateName" : StateNameWC};
+    	  var data = StateNameWC;
     	  if(ml.checked == true){
     	         document.getElementById("dataTable").innerHTML = '<h4>US Population Density</h4>' + (props ?
     	                '<table><tr><th>' + '<b>name</b>' + '</th><th>' + '<b>population</b>' + '</th></tr><tr><td>' + StateNameML + '</td><td>' + densityML + '</td></tr><tr><td>' + StateNameML + '</td><td>' + densityML + '</td></tr><tr><td>' + StateNameML + '</td><td>' + densityML + '</td></tr></table>' :
     	                'Hover over a state');         
     	                onclick="zoomin_maryland()"; 
-    	                data["stateName"] = StateNameML;
+    	                data = StateNameML;
     	         }
     	         
     	         else if(ny.checked == true){
     	         document.getElementById("dataTable").innerHTML = '<h4>US Population Density</h4>' + (props ?
     	                '<table><tr><th>' + '<b>name</b>' + '</th><th>' + '<b>population</b>' + '</th></tr><tr><td>' + StateNameNY + '</td><td>' + densityNY + '</td></tr><tr><td>' + StateNameNY + '</td><td>' + densityNY + '</td></tr><tr><td>' + StateNameNY + '</td><td>' + densityNY + '</td></tr></table>' :
     	                'Hover over a state');      
-    	         		data["stateName"] = StateNameNY;
+    	         		data = StateNameNY;
     	         }
     	         
     	         else if(wc.checked == true){
     	         document.getElementById("dataTable").innerHTML = '<h4>US Population Density</h4>' + (props ?
     	                '<table><tr><th>' + '<b>name</b>' + '</th><th>' + '<b>population</b>' + '</th></tr><tr><td>' + StateNameWC + '</td><td>' + densityWC + '</td></tr><tr><td>' + StateNameWC + '</td><td>' + densityWC + '</td></tr><tr><td>' + StateNameWC + '</td><td>' + densityWC + '</td></tr></table>' :
     	                'Hover over a state');
-    	         		data["stateName"] = StateNameWC;
+    	         		data = StateNameWC;
     	         }
     	         
     	         else{
@@ -58,7 +65,7 @@
 
       }
       
-    
+      
         function openNav() {
             document.getElementById("mySidepanel").style.width = "400px";
         }

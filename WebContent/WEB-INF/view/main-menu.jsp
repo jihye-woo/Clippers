@@ -73,13 +73,13 @@
                         <div class="row">
                             <div class="col">
                                 <header class="card-header">
-                                    <h6 class="title"> Ethinic Group </h6>
+                                    <h6 class="title"> Election Term </h6>
                                 </header>
-                                <form action="">
+                                <form>
                                     <br>
-                                    <input type="checkbox" name="16_congressional" id="16_congressional" checked>2016 Congressional<br>
-                                    <input type="checkbox" name="18_congressional" id="18_congressional">2018 Congressional<br>
-                                    <input type="checkbox" name="18_presidential" id="18_presidential">2016 Presidential<br><br>
+                                    <input class="phase0_electionTerm" type="checkbox" name="16_congressional" id="16_congressional" checked>2016 Congressional<br>
+                                    <input class="phase0_electionTerm" type="checkbox" name="18_congressional" id="18_congressional">2018 Congressional<br>
+                                    <input class="phase0_electionTerm" type="checkbox" name="18_presidential" id="18_presidential">2016 Presidential<br><br>
                                 </form>
                             </div>
                         </div>
@@ -142,14 +142,14 @@
                         <!-- </div> -->
                     </div>
                     <header class="card-header">
-                        <h6 class="title"> Ethinic Group </h6>
+                        <h6 class="title"> Demographic Group </h6>
                     </header>
                     <form>
                         <br>
-                        <input type="checkbox" name="ethinic" id="White">White<br>
-                        <input type="checkbox" name="ethinic" id="Latino">Hispanic, Latino American<br>
-                        <input type="checkbox" name="ethinic" id="Black" checked>Black, African American<br>
-                        <input type="checkbox" name="ethinic" id="Asian">Asian<br><br>
+                        <input type="checkbox" class ="phase1_demographicCheckBox" name="ethinic" id="White">White<br>
+                        <input type="checkbox" class ="phase1_demographicCheckBox" name="ethinic" id="Latino">Hispanic, Latino American<br>
+                        <input type="checkbox" class ="phase1_demographicCheckBox" name="ethinic" id="Black" checked>Black, African American<br>
+                        <input type="checkbox" class ="phase1_demographicCheckBox" name="ethinic" id="Asian">Asian<br><br>
                     </form>
 
                     <h5 class="card-header">Parameters</h5>
@@ -159,8 +159,8 @@
                         </header>
                         <form method="post" action="/action_page_post.php">
                             <div data-role="rangeslider" data-mini="true">
-                                <input type="range" name="price1-min" id="district-min" value="200" min="0" max="1000">
-                                <input type="range" name="price1-max" id="district-max" value="800" min="0" max="1000">
+                                <input type="range" name="phase1_district-min" id="phase1_district-min" value="200" min="0" max="1000">
+                                <input type="range" name="phase1_district-max" id="phase1_district-max" value="800" min="0" max="1000">
                             </div>
                         </form>
 
@@ -169,7 +169,7 @@
                         </header>
                         <form method="post" action="/action_page_post.php">
                             <div data-role="rangeslider" data-mini="true">
-                                <input type="range" name="phase0_population_val" id="popul-min" value="20" min="0" max="100">
+                                <input type="range" name="phase1_population-val" id="phase1_population-val" value="20" min="0" max="100">
                             </div>
                         </form>
 
@@ -190,8 +190,8 @@
             </div>
 
             <div class="container">
-                <button type="button" class="btn btn-primary btn-lg btn-block">Start/Continue</button>
-                <button type="button" id="myBtn0" class="btn btn-primary btn-lg btn-block">Pause</button>
+                <button type="button" id = "phase1_start_button" class="btn btn-primary btn-lg btn-block">Start/Continue</button>
+                <button type="button" id = "phase1_pause_button" class="btn btn-primary btn-lg btn-block">Pause</button>
             </div>
         </div>
     </div>
