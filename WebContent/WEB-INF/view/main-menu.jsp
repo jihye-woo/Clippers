@@ -93,6 +93,16 @@
                                     <input type="checkbox" name="ethinic" id="Black" checked>Black, African American<br>
                                     <input type="checkbox" name="ethinic" id="Asian">Asian<br><br>
                                 </form>
+                                <header class="card-header">
+                                    <h6 class="title"> Ethinic Group </h6>
+                                </header>
+                                <form>
+                                    <br>
+                                    <input type="checkbox" name="ethinic" id="White">White<br>
+                                    <input type="checkbox" name="ethinic" id="Latino">Hispanic, Latino American<br>
+                                    <input type="checkbox" name="ethinic" id="Black" checked>Black, African American<br>
+                                    <input type="checkbox" name="ethinic" id="Asian">Asian<br><br>
+                                </form>
                             </div>
                         </div>
                     </div>
