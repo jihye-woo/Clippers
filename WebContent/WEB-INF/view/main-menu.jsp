@@ -47,11 +47,9 @@
         </div>
 
         <div id="mySidepanel" class="sidepanel" style="margin-top: 1rem; margin-left: 1rem; ">
-<<<<<<< HEAD
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">� </a>
-=======
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">×</a>
->>>>>>> 7c1d0495c15d06124204a7b4fe467b99be581f8d
+
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">X</a>
+
             <div class="container">
                 <h1 id=sidebar_header style="margin-bottom: 2rem;"> Phase 0 </h1>
 
@@ -64,58 +62,16 @@
                         <div class="dropdown-container">
                             <label><input type="radio" name="ship" id="NY" checked="zoomin_newyork()" /> New York</label>
                             <label><input type="radio" name="ship" id="ML" checked="zoomin_newyork()" /> Maryland</label>
-                            <!-- <button><input type="radio" name="ship" id="ML" onclick="zoomin_maryland()"/> Maryland</button> -->
                             <label><input type="radio" name="ship" id="WC" checked="zoomin_wisconsin()" /> Wisconsin</label>
-<<<<<<< HEAD
-                            <!--                            <a href="#">Link 1</a>
-                           <a href="#">Link 2</a>
-                           <a href="#">Link 3</a> -->
+
                         </div>
-                        <!-- <button type="button" id="submitBtn" class="btn btn-primary btn-lg btn-block" >Show State</button> -->
-                        <!--                         <li class="dropdown">
-                           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">States <span class="caret"></span></a>
-                              <ul class="dropdown-menu" role="menu">
-                                 <li><a id="selected_newyork" href="#" onclick="zoomin_newyork();">New York</a></li>
-                                 <li><a id="selected_maryland" href="#" onclick="zoomin_maryland();return true;">Maryland</a></li>
-                                 <li><a id="selected_wisconsin" href="#" onclick="zoomin_wisconsin();return true;">Wisconsin</a></li>
 
-
-                              </ul>
-                        </li> -->
-=======
-                            <!-- 									<a href="#">Link 1</a>
-									<a href="#">Link 2</a>
-									<a href="#">Link 3</a> -->
-                        </div>
-                        <!-- <button type="button" id="submitBtn" class="btn btn-primary btn-lg btn-block" >Show State</button> -->
-                        <!-- 								<li class="dropdown">
-									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">States <span class="caret"></span></a>
-										<ul class="dropdown-menu" role="menu">
-											<li><a id="selected_newyork" href="#" onclick="zoomin_newyork();">New York</a></li>
-											<li><a id="selected_maryland" href="#" onclick="zoomin_maryland();return true;">Maryland</a></li>
-											<li><a id="selected_wisconsin" href="#" onclick="zoomin_wisconsin();return true;">Wisconsin</a></li>
-
-
-										</ul>
-								</li> -->
->>>>>>> 7c1d0495c15d06124204a7b4fe467b99be581f8d
                     </div>
 
                     <h5 class="card-header">Parameters</h5>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
-                                <header class="card-header">
-                                    <h6 class="title"> Ethinic Group </h6>
-                                </header>
-                                <form>
-                                    <br>
-                                    <input type="checkbox" name="ethinic" id="White">White<br>
-                                    <input type="checkbox" name="ethinic" id="Latino">Hispanic, Latino American<br>
-                                    <input type="checkbox" name="ethinic" id="Black" checked>Black, African American<br>
-                                    <input type="checkbox" name="ethinic" id="Asian">Asian<br><br>
-                                </form>
-<<<<<<< HEAD
                                 <header class="card-header">
                                     <h6 class="title"> Ethinic Group </h6>
                                 </header>
@@ -131,34 +87,19 @@
 
                     <div class="row">
                         <div class="col">
-                            <header class="card-header"> 
-                                <h6 class="title">Population Percentage</h6>
-                            </header>
-
-=======
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="col">
                             <header class="card-header">
                                 <h6 class="title">Population Percentage</h6>
                             </header>
 
->>>>>>> 7c1d0495c15d06124204a7b4fe467b99be581f8d
+
                             <form method="post">
                                 <div data-role="rangeslider" data-mini="true">
                                     <input type="range" name="phase0_population_val" id="phase0_population_val" value="80" min="0" max="100">
                                 </div>
                             </form>
-<<<<<<< HEAD
 
 
-=======
 
-
->>>>>>> 7c1d0495c15d06124204a7b4fe467b99be581f8d
                             <header class="card-header">
                                 <h6 class="title">Bloc Voting Percentage </h6>
                             </header>
@@ -181,11 +122,9 @@
 
 
         <div id="mySidepanel2" class="sidepanel">
-<<<<<<< HEAD
-            <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">X</a>
-=======
+
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav2()">×</a>
->>>>>>> 7c1d0495c15d06124204a7b4fe467b99be581f8d
+
             <div class="container">
 
                 <h1 id=sidebar_header style="margin-bottom: 2rem;"> Phase 1 & 2</h1>
@@ -230,17 +169,13 @@
                         <form method="post" action="/action_page_post.php">
                             <div data-role="rangeslider" data-mini="true">
                                 <input type="range" name="phase0_population_val" id="popul-min" value="20" min="0" max="100">
-                                <!-- <input type="range" name="price1-max" id="popul-max" value="800" min="0" max="1000"> -->
                             </div>
                         </form>
 
                         <header class="card-header">
                             <h6 class="title"> Iteration Rate</h6>
                         </header>
-                        <!-- <input type="number" class="form-control" id="iterationRate" placeholder="0" align="center"> -->
-                        <!-- <form action="/action_page.php"> -->
                         <input type="number" name="quantity" id="iterationRate" min="1" max="100">
-                        <!-- </form> -->
 
                         <header class="card-header">
                             <p> Select Phase<p>
@@ -259,15 +194,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-    <!-- </div>    -->
-=======
-    <!-- </div>	 -->
->>>>>>> 7c1d0495c15d06124204a7b4fe467b99be581f8d
-    <!-- </article> -->
-
-    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="js/bootstrap.min.js"></script> -->
     <script>
         var map = L.map('map').setView([43, -83], 4.5);
 
@@ -294,10 +220,6 @@
                 '<table><tr><th>' + '<b>Name</b>' + '</th><th>' + '<b>Density</b>' + '</th></tr><tr><td>' + props.name + '</td><td>' + props.density + '</td></tr><tr><td>' + props.name + '</td><td>' + props.density + '</td></tr></table>' :
                 'Hover over a state');
         };
-<<<<<<< HEAD
-=======
-
->>>>>>> 7c1d0495c15d06124204a7b4fe467b99be581f8d
 
         info.addTo(map);
 
