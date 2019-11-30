@@ -96,9 +96,9 @@
                                 <header class="card-header">
                                     <h6 class="title"> Ethinic Group </h6>
                                 </header>
-                                <form>
+                                <form action="">
                                     <br>
-                                    <input type="checkbox" name="16_congressional" id="16_congressional">2016 Congressional<br>
+                                    <input type="checkbox" name="16_congressional" id="16_congressional" checked>2016 Congressional<br>
                                     <input type="checkbox" name="18_congressional" id="18_congressional">2018 Congressional<br>
                                     <input type="checkbox" name="18_presidential" id="18_presidential">2016 Presidential<br><br>
                                 </form>
@@ -108,7 +108,7 @@
 
                     <div class="row">
                         <div class="col">
-                            <header class="card-header">
+                            <header class="card-header"> 
                                 <h6 class="title">Population Percentage</h6>
                             </header>
 
@@ -247,18 +247,17 @@
                 'Hover over a state');
         };
 
-
         info.addTo(map);
 
         // get color depending on population density value
         function getColor(d) {
             return d > 1000 ? '#800026' :
-                d > 500 ? '#44f2ef' :
+              /*   d > 500 ? '#44f2ef' :
                 d > 200 ? '#a278eb' :
-                d > 100 ? '#3071b8' :
-                //d > 500 ? '#BD0026' :
-                //d > 200 ? '#E31A1C' :
-                //d > 100 ? '#FC4E2A' :
+                d > 100 ? '#3071b8' : */
+                d > 500 ? '#BD0026' :
+                d > 200 ? '#E31A1C' :
+                d > 100 ? '#FC4E2A' :
                 d > 50 ? '#FD8D3C' :
                 d > 20 ? '#FEB24C' :
                 d > 10 ? '#FED976' :
