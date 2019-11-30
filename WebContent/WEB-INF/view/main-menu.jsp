@@ -98,10 +98,9 @@
                                 </header>
                                 <form>
                                     <br>
-                                    <input type="checkbox" name="ethinic" id="White">White<br>
-                                    <input type="checkbox" name="ethinic" id="Latino">Hispanic, Latino American<br>
-                                    <input type="checkbox" name="ethinic" id="Black" checked>Black, African American<br>
-                                    <input type="checkbox" name="ethinic" id="Asian">Asian<br><br>
+                                    <input type="checkbox" name="16_congressional" id="16_congressional">2016 Congressional<br>
+                                    <input type="checkbox" name="18_congressional" id="18_congressional">2018 Congressional<br>
+                                    <input type="checkbox" name="18_presidential" id="18_presidential">2016 Presidential<br><br>
                                 </form>
                             </div>
                         </div>
