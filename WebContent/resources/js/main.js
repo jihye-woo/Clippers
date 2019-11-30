@@ -41,7 +41,7 @@
     	         document.getElementById("dataTable").innerHTML = '<h4>US Population Density</h4>' + (props ?
     	                '<table><tr><th>' + '<b>name</b>' + '</th><th>' + '<b>population</b>' + '</th></tr><tr><td>' + StateNameNY + '</td><td>' + densityNY + '</td></tr><tr><td>' + StateNameNY + '</td><td>' + densityNY + '</td></tr><tr><td>' + StateNameNY + '</td><td>' + densityNY + '</td></tr></table>' :
     	                'Hover over a state');      
-    	         		data["stateName"] = StateNameML;
+    	         		data["stateName"] = StateNameNY;
     	         }
     	         
     	         else if(wc.checked == true){
