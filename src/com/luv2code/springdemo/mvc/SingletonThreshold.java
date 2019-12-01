@@ -15,7 +15,7 @@ public class SingletonThreshold {
 	static public float blocVotingMinPercentage;
 	static public float blocVotingMaxPercentage;
 	static public List<DemographicGroup> demoGroup;
-	static public ElectionTerm electionTerms;
+	static public List<ElectionTerm> electionTerms;
 	static public HashMap<String, Integer> districtNumberGoals;
 	static public float joinabilityPercentage;
 	
@@ -35,12 +35,12 @@ public class SingletonThreshold {
 		return singleton;
 	}
 	
-	public void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, ElectionTerm electionTerms) {
+	public static void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, List<ElectionTerm> terms) {
 		blocPopulationMinPercentage = popMin;
 		blocPopulationMaxPercentage = popMax;
 		blocVotingMinPercentage = votingMin;
 		blocVotingMaxPercentage = votingMax;
-		this.electionTerms = electionTerms;
+		electionTerms = terms;
 	}
 	
 	static public List<DemographicGroup> getTargetPopulation() {

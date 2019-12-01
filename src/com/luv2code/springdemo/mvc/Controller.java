@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.luv2code.springdemo.enumerations.ElectionTerm;
 import com.luv2code.springdemo.summary.ClusterSummary;
 
 @RestController
@@ -31,7 +32,6 @@ public class Controller {
 		JSONObject jsonObject;
 		try {
 			jsonObject = (JSONObject) jsonParser.parse(phase0_data);
-			System.out.println(jsonObject);
 			String stateName = (String) jsonObject.get("stateName");
 			Float phase0_population_min = Float.valueOf((String) jsonObject.get("phase0_population_min"));
 			Float phase0_population_max =  Float.valueOf((String) jsonObject.get("phase0_population_max"));
@@ -40,23 +40,17 @@ public class Controller {
 			
 			JSONArray electionTerms_arr = (JSONArray) jsonObject.get("electionTerms");
 			
-			
-			ArrayList<String> electionTerms = new ArrayList<String>();     
+			ArrayList<ElectionTerm> electionTerms = new ArrayList<ElectionTerm>();     
 			JSONArray jsonArray = (JSONArray) electionTerms_arr; 
 			if (jsonArray != null) { 
 			   int len = jsonArray.size();
 			   for (int i=0;i<len;i++){ 
-				   electionTerms.add(jsonArray.get(i).toString());
+				   electionTerms.add( selectedTerm(jsonArray.get(i).toString()) );
 			   } 
 			}
-			System.out.println(electionTerms);
 			
-//			for (int i=0; i<electionTerms_arr.length(); i++) {
-//				electionTerms.add( electionTerms_arr.getString(i) );
-//			}
-			
-			
-			
+			SingletonThreshold.saveThreshold(phase0_population_min, phase0_population_max,
+					phase0_vote_min, phase0_vote_max, electionTerms);
 			
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -65,28 +59,16 @@ public class Controller {
 		return new ResponseEntity<>(phase0_data, HttpStatus.OK);
 	}
 	
-	
-//	@RequestMapping(value = "/getThersholds", method = RequestMethod.POST, produces = "application/json")
-//	public ResponseEntity<String> getThersholds(@RequestBody String ThersholdVars_and_Demographics){
-////		float demographicMinPercentage, float demographicMaxPercentage, 
-////		float votingMinPercentage, float votingMaxPercentage, List<DemographicGroup> demographicGroups
-//		System.out.println(ThersholdVars_and_Demographics);
-//		try {
-//			JSONObject jsonObject = (JSONObject) jsonParser.parse(ThersholdVars_and_Demographics);
-//			System.out.println(jsonObject);
-//			System.out.println(jsonObject.get("phase0_population_min"));
-//			System.out.println(jsonObject.get("phase0_population_max"));
-//			System.out.println(jsonObject.get("phase0_vote_min"));
-//			System.out.println(jsonObject.get("phase0_vote_max"));
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			System.out.println("error");
-//			e.printStackTrace();
-//		}
-//		
-//		return new ResponseEntity<>(ThersholdVars_and_Demographics, HttpStatus.CREATED);
-//		
-//	}
+	public ElectionTerm selectedTerm(String term) {
+		if(term == "16_congressional") {
+			return ElectionTerm.Presidential2016;
+		}
+		else if(term == "18_congressional") {
+			return ElectionTerm.Congressional2016;
+ 		}
+		return ElectionTerm.Congressional2018;
+	}
+
 	
 	@RequestMapping(value = "/getSlider", method = RequestMethod.POST, produces = "application/json")
 	public void setVariables(@RequestBody List<Integer> userVariables){
