@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.luv2code.springdemo.enumerations.ElectionTerm;
 import com.luv2code.springdemo.summary.ClusterSummary;
 
@@ -59,6 +58,22 @@ public class Controller {
 		return new ResponseEntity<>(phase0_data, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/phase1_data", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<String> runPhase1(@RequestBody String phase1_data){
+		
+		return new ResponseEntity<>(phase1_data, HttpStatus.CREATED);
+	}
+	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<String> runPhase2(@RequestBody String phase2_data){
+		
+		return new ResponseEntity<>(phase2_data, HttpStatus.CREATED);
+	}
+	
+//	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
+//	public ModelAndView runPhase2(@RequestBody String phase2_data){
+//		return new ModelAndView();
+//	}	
+	
 	public ElectionTerm selectedTerm(String term) {
 		if(term == "16_congressional") {
 			return ElectionTerm.Presidential2016;
@@ -68,24 +83,11 @@ public class Controller {
  		}
 		return ElectionTerm.Congressional2018;
 	}
-
 	
-	@RequestMapping(value = "/getSlider", method = RequestMethod.POST, produces = "application/json")
-	public void setVariables(@RequestBody List<Integer> userVariables){
-		SingletonThreshold.setVotingMin(userVariables.get(0));
-		SingletonThreshold.setVotingMax(userVariables.get(1));
-		SingletonThreshold.setDemographicMin(userVariables.get(2));
-		SingletonThreshold.setDemographicMax(userVariables.get(3));
-		System.out.println(userVariables.get(0));
-		
+	@RequestMapping(value = "/hover_state", method = RequestMethod.POST)
+	public ResponseEntity<String> hover_state(@RequestBody String stateName) {
+		return new ResponseEntity<>(stateName, HttpStatus.CREATED);
 	}
 	
-	public ResponseEntity<List<ClusterSummary>> runPhase1(String stateName, boolean isPerIteration, boolean isResumed){
-		List<ClusterSummary> clusters = new ArrayList<ClusterSummary>();
-		return new ResponseEntity<>(clusters, HttpStatus.CREATED);
-	}
-	
-	public ModelAndView runPhase2(String stateName){
-		return new ModelAndView();
-	}	
 }
+
