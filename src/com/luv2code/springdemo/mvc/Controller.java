@@ -63,11 +63,11 @@ public class Controller {
 		
 		return new ResponseEntity<>(phase1_data, HttpStatus.CREATED);
 	}
-	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> runPhase2(@RequestBody String phase2_data){
-		
-		return new ResponseEntity<>(phase2_data, HttpStatus.CREATED);
-	}
+//	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
+//	public ResponseEntity<String> runPhase2(@RequestBody String phase2_data){
+//		
+//		return new ResponseEntity<>(phase2_data, HttpStatus.CREATED);
+//	}
 	
 //	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
 //	public ModelAndView runPhase2(@RequestBody String phase2_data){
@@ -93,15 +93,11 @@ public class Controller {
 	
 	@RequestMapping(value = "/hover_precinct", method = RequestMethod.POST)
 	public ResponseEntity<String> hover_precinct(@RequestBody String precinctName) {
-		
-		
 		return new ResponseEntity<>("hello", HttpStatus.CREATED);
 	}
 	
 	@RequestMapping(value = "/hover_district", method = RequestMethod.POST)
 	public ResponseEntity<String> hover_district(@RequestBody String districtName) {
-		
-		
 		return new ResponseEntity<>("hello", HttpStatus.CREATED);
 	}
 	

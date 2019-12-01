@@ -290,7 +290,7 @@
          
             info.update(layer.feature.properties);
             
-            var zoom_level=4;
+            var zoom_level = 4;
             // get zoom level
             
             var hover_endpoint = "hover_state";
@@ -298,7 +298,7 @@
             if(zoom_level == 5){
                 hover_endpoint = "hover_precinct";
             }
-            else if(){
+            else if(zoom_level == 6){
                 hover_endpoint = "hover_district";    
             }
           
@@ -322,9 +322,37 @@
             geojson.resetStyle(e.target);
             info.update();
         }
-
+	
+        
         function zoomToFeature(e) {
+        	
             map.fitBounds(e.target.getBounds());
+            
+            var zoom_endpoint = "zoom_state";
+
+            var zoom_level = 4;
+            // get zoom level
+            
+            if(zoom_level == 5){
+                hover_endpoint = "zoom_precinct";
+            }
+            else if(zoom_level == 6){
+                hover_endpoint = "zoom_district";    
+            }
+            
+            $.ajax({
+                type: "POST",
+                contentType: "application/json",
+                url: "/spring-mvc-demo/controller/"+hover_endpoint,
+                data: e.target.feature.properties.name,
+                async: false,
+                dataType: 'text',
+                success: function(data) {
+                    console.log(data);
+                }
+            });
+            
+            
             console.log(e.target.feature.properties.name);
         }
 
