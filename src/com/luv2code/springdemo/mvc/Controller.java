@@ -86,7 +86,23 @@ public class Controller {
 	
 	@RequestMapping(value = "/hover_state", method = RequestMethod.POST)
 	public ResponseEntity<String> hover_state(@RequestBody String stateName) {
-		return new ResponseEntity<>(stateName, HttpStatus.CREATED);
+		
+		
+		return new ResponseEntity<>("hello", HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/hover_precinct", method = RequestMethod.POST)
+	public ResponseEntity<String> hover_precinct(@RequestBody String precinctName) {
+		
+		
+		return new ResponseEntity<>("hello", HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/hover_district", method = RequestMethod.POST)
+	public ResponseEntity<String> hover_district(@RequestBody String districtName) {
+		
+		
+		return new ResponseEntity<>("hello", HttpStatus.CREATED);
 	}
 	
 }

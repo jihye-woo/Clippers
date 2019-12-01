@@ -287,13 +287,25 @@
             if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
                 layer.bringToFront();
             }
-            console.log(e.target.feature.properties.name);
+         
             info.update(layer.feature.properties);
-
+            
+            var zoom_level=4;
+            // get zoom level
+            
+            var hover_endpoint = "hover_state";
+            // setting default url endpoint
+            if(zoom_level == 5){
+                hover_endpoint = "hover_precinct";
+            }
+            else if(){
+                hover_endpoint = "hover_district";    
+            }
+          
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/spring-mvc-demo/controller/hover_state",
+                url: "/spring-mvc-demo/controller/"+hover_endpoint,
                 data: e.target.feature.properties.name,
                 async: false,
                 dataType: 'text',
@@ -301,6 +313,7 @@
                     console.log(data);
                 }
             });
+           
         }
 
         var geojson;
