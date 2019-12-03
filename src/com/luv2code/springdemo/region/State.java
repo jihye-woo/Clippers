@@ -10,7 +10,7 @@ public class State extends Region {
 	private float majMinPoint;
 	private List<District> originalDistricts;
 	private List<Cluster> clusters;
-	private List<Precinct> precincts;
+	private List<Precincts> precincts;
 	private int numberOfDistricts;
 	
 	public State(String stateName) {

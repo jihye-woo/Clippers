@@ -5,7 +5,7 @@ import java.util.Set;
 import javax.json.JsonObject;
 
 import com.luv2code.springdemo.region.Cluster;
-import com.luv2code.springdemo.region.Precinct;
+import com.luv2code.springdemo.region.Precincts;
 import com.luv2code.springdemo.region.Region;
 
 
@@ -59,8 +59,8 @@ public class Algorithm {
 		return 1;
 	}
 	
-	public Set<Precinct> getRandomNeihboringPrecincts(Cluster c1, Cluster c2) {
-		return new HashSet<Precinct>();
+	public Set<Precincts> getRandomNeihboringPrecincts(Cluster c1, Cluster c2) {
+		return new HashSet<Precincts>();
 	}
 	
 }

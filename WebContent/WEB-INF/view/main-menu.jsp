@@ -353,15 +353,13 @@
                 contentType: "application/json",
                 url: "/spring-mvc-demo/controller/"+zoom_endpoint,
                 data: e.target.feature.properties.name,
-                async: false,
+//                async: false,
                 dataType: 'json',
                 success: function(data) {
                     console.log(data);
                 }
             });
         }
-            
-            
 //            console.log(e.target.feature.properties.name);
        
 

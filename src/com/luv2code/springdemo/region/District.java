@@ -9,7 +9,7 @@ public class District extends Region {
 	private int districtId;
 	private String representativeName;
 	private PoliticalParty representativeParty;
-	private Set<Precinct> precincts;
+	private Set<Precincts> precincts;
 	
 	public District() {
 		super();
