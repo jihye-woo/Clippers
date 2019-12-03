@@ -52,10 +52,17 @@
             <div class="container">
                 <h1 id=sidebar_header style="margin-bottom: 2rem;">Phase 0</h1>
 
+                
+                
+                  <script>
+                    function change(){
+                        console.log(document.getElementById("dropdown_state").value);
+                        }
+                    </script>
                 <div class="card text-center">
                     <h5 class="card-header">Select State</h5>
                     <div class="card-body">
-                        <select id="dropdown_state">
+                        <select id="dropdown_state" onchange="change()">
                             <option value="New York">New York</option>
                             <option value="Maryland">Maryland</option>
                             <option value="Wisconsin">Wisconsin</option>
@@ -63,6 +70,8 @@
                         <button type="button" onclick="phase0_select_state()">Selected</button>
 
                     </div>
+                    
+                  
 
                     <!--
                     <script>
@@ -323,38 +332,38 @@
             info.update();
         }
 	
-        
         function zoomToFeature(e) {
-        	
             map.fitBounds(e.target.getBounds());
+            console.log("zoom");
             
-            var zoom_endpoint = "zoom_state";
+            var zoom_endpoint = "zoom_precinct";
 
             var zoom_level = 4;
             // get zoom level
             
             if(zoom_level == 5){
-                hover_endpoint = "zoom_precinct";
+                zoom_endpoint = "zoom_precinct";
             }
             else if(zoom_level == 6){
-                hover_endpoint = "zoom_district";    
+                zoom_endpoint = "zoom_district";    
             }
-            
+//            console.log(zoom_endpoint);
             $.ajax({
                 type: "POST",
                 contentType: "application/json",
-                url: "/spring-mvc-demo/controller/"+hover_endpoint,
+                url: "/spring-mvc-demo/controller/"+zoom_endpoint,
                 data: e.target.feature.properties.name,
                 async: false,
-                dataType: 'text',
+                dataType: 'json',
                 success: function(data) {
                     console.log(data);
                 }
             });
-            
-            
-            console.log(e.target.feature.properties.name);
         }
+            
+            
+//            console.log(e.target.feature.properties.name);
+       
 
         function clickStates(target_state) {
             map.fitBounds(target_state.getBounds());

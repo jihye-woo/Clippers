@@ -149,3 +149,7 @@ function select_phase() {
         }
     }
 }
+
+function change(){
+    console.log(document.getElementById("dropdown_state").value);
+}

@@ -23,7 +23,7 @@ public class State extends Region {
 	}
 	
 	public List<Cluster> initClusters(){
-		return null;
+		return clusters;
 	}
 	
 	public void saveRedistrictedDistrict(List<Cluster> clusters) {
