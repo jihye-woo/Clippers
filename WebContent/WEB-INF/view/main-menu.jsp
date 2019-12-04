@@ -226,6 +226,7 @@
         </div>
     </div>
     </div>
+<!--
     <script>
         var map = L.map('map').setView([43, -83], 4.5);
 
@@ -397,6 +398,7 @@
             .addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
 
     </script>
+-->
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
         var dropdown = document.getElementsByClassName("dropdown-btn");
@@ -415,6 +417,7 @@
         }
 
     </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/map.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/main.js"></script>
 </body>
 

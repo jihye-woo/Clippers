@@ -1,6 +1,10 @@
 package com.luv2code.springdemo.mvc;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +25,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.springdemo.dao.PrecinctDAO;
-import com.luv2code.springdemo.dao.PrecinctDAOImpl;
 import com.luv2code.springdemo.enumerations.ElectionTerm;
 import com.luv2code.springdemo.region.Cluster;
 import com.luv2code.springdemo.region.Precincts;
@@ -179,23 +182,24 @@ public class Controller {
 	}
 
 	@RequestMapping(value = "/zoom_precinct", method = RequestMethod.POST)
-	public ResponseEntity<String> zoom_precinct(@RequestBody String precinctName) {
+	public ResponseEntity<String> zoom_precinct(@RequestBody String precinctName) throws IOException {
 //		return new ResponseEntity<>("precinct zoom hello", HttpStatus.CREATED);
 		List<String> precinct_boundary = precinctDAO.getPrecincts();
-		System.out.println(precinct_boundary.get(0));
 
-//		JSONObject object = new JSONObject();
-//		JSONArray array = new JSONArray();
+		JSONObject object = new JSONObject();
+		JSONArray array = new JSONArray();
 //		
-//		for(String precinct_geojson : precinct_boundary) {
-//			array.add(precinct_geojson);
+//		Path file = Paths.get("precinct_data.txt");
+//		Files.write(file, precinct_boundary, StandardCharsets.UTF_8);
+		
+		for(String precinct_geojson : precinct_boundary) {
+			array.add(precinct_geojson);
 //			System.out.println(precinct_geojson);
-//		}
+		}
+		object.put("precincts", array);
 
-//		object.put("precincts", array);
-
-//		String returnData = object.toString();
-		return new ResponseEntity<>(precinctName, HttpStatus.CREATED);
+		String returnData = object.toJSONString(); 
+		return new ResponseEntity<>(returnData, HttpStatus.CREATED);
 	}
 
 	@RequestMapping(value = "/zoom_district", method = RequestMethod.POST)
