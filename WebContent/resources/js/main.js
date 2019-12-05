@@ -11,8 +11,19 @@ var densityWC = statesData.features[2].properties.density;
 var electionTerms = [];
 var phase1_selectedDemo = [];
 var phase0_stateData = phase0_selected_state;
-var phase1_stateData = phase1_select_state();
+var phase1_stateData = phase1_selected_state;
 var phaseStatus = select_phase();
+
+// dropdown script
+var phase0_selected_state;
+  function phase0_select_state(){
+  	phase0_selected_state = document.getElementById("phase0_dropdown_state").value;
+  }
+  
+var phase1_selected_state;
+	function phase1_select_state(){
+		phase1_selected_state = document.getElementById("phase1_dropdown_state").value;
+	}
 
 function checked_electionTerm() {
 
@@ -49,7 +60,7 @@ var btn_phase0 = document.getElementById("phase0_button");
 btn_phase0.onclick = function (props) {
 
     var phase0_data = {
-        "stateName": phase0_stateData,
+        "stateName": phase0_selected_state,
         "phase0_population_min": document.getElementById("phase0_population_min").value,
         "phase0_population_max": document.getElementById("phase0_population_max").value,
         "phase0_vote_min": document.getElementById("phase0_vote_min").value,
@@ -74,7 +85,7 @@ var btn_phase1 = document.getElementById("phase1_start_button");
 btn_phase1.onclick = function (props) {
 
     var phase1_data = {
-        "stateName": phase1_stateData,
+        "stateName": phase1_selected_state,
         "demographicGroup": phase1_selectedDemo,
         "numOfDistrict_min": document.getElementById("phase1_district_min").value,
         "numOfDistrict_max": document.getElementById("phase1_district_max").value,
@@ -112,18 +123,6 @@ btn_phase1.onclick = function (props) {
 
 }
 
-function phase0_select_state() {
-    var phase0_stateName = document.getElementById("dropdown_state").value;
-    console.log(phase0_stateName);
-    return phase0_stateName;
-}
-
-function phase1_select_state() {
-    var phase1_stateName = document.getElementById("dropdown_state_phase1").value;
-    console.log(phase1_stateName);
-    return phase1_stateName;
-}
-
 function openNav() {
     document.getElementById("mySidepanel").style.width = "400px";
 }
@@ -150,6 +149,3 @@ function select_phase() {
     }
 }
 
-function change(){
-    console.log(document.getElementById("dropdown_state").value);
-}

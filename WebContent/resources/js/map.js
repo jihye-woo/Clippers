@@ -43,7 +43,7 @@
                 d > 10 ? '#FED976' : '#FFEDA0';
         }
 
-        function getPrecinctColor(d){
+        function getPrecinctColor(d) {
             return d > 500 ? '#AB08B7' :
                 /*   d > 500 ? '#44f2ef' :
                   d > 200 ? '#a278eb' :
@@ -61,17 +61,6 @@
                 dashArray: '3',
                 fillOpacity: 0.7,
                 fillColor: getColor(feature.properties.density)
-            };
-        }
-
-        function precinct_style(feature){
-             return {
-                weight: 2,
-                opacity: 1,
-                color: '#086BB7',
-                dashArray: '3',
-                fillOpacity: 0.7,
-                fillColor: '#58A9E8'
             };
         }
 
@@ -123,13 +112,24 @@
             info.update();
         }
 
+        function precinct_style(feature) {
+            return {
+                weight: 2,
+                opacity: 1,
+                color: '#086BB7',
+                dashArray: '3',
+                fillOpacity: 0.7,
+                fillColor: '#58A9E8'
+            };
+        }
+
         function zoomToFeature(e) {
             map.fitBounds(e.target.getBounds());
             console.log("zoom");
 
             var zoom_endpoint = "zoom_precinct";
 
-            var zoom_level = 4;
+            var zoom_level = map.getZoom();
             // get zoom level
 
             if (zoom_level == 5) {
@@ -154,23 +154,10 @@
                         }).addTo(map);
                     });
                     var endTime = new Date().getTime();
-                    
-                    console.log(endTime - startTime);
 
-                    //                    
-                    //                    map.fitBounds(geojsonLayer.getBounds());
-                    //                    map.fitBounds(precinct_data[0].getBounds());
-                    //                    var precinct_array = JSON.parse(precinct_data);
-                    //                      precinct_data['precincts'].forEach(item => L.geoJSON(item).addTo(map));
-                    //                      precinct_array.forEach(function(element){
-                    //                         L.geoJSON(element).addTo(map);
-                    //                      });
+                    console.log(endTime - startTime);
                 }
             });
-
-
-
-
         }
 
         function clickStates(target_state) {

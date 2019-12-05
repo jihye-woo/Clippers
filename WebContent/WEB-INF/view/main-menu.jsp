@@ -54,51 +54,18 @@
 
                 
                 
-                  <script>
-                  var phase0_selected_state;
-                    function phase0_select_state(){
-                    	phase0_selected_state = document.getElementById("dropdown_state").value;
-                    }
+                
                     
-                    </script>
                 <div class="card text-center">
                     <h5 class="card-header">Select State</h5>
                     <div class="card-body">
-                        <select id="dropdown_state" onchange="change()">
+                        <select id="phase0_dropdown_state" onchange="phase0_select_state()" style = "color: black">
                             <option value="New York">New York</option>
                             <option value="Maryland">Maryland</option>
                             <option value="Wisconsin">Wisconsin</option>
                         </select>
                     </div>
                     
-                  
-
-                    <!--
-                    <script>
-                        function phase0_select_state() {
-                            var x = document.getElementById("dropdown_state").value;
-                            console.log(x);
-                            return x;
-                        }
-
-                    </script>
--->
-                    <!--
-                    <h5 class="card-header">State</h5>
-                    <div class="card-body">
-                        <button class="dropdown-btn">Select State
-                            <i class="fa fa-caret-down"></i>
-                        </button>
-                        <div class="dropdown-container">
-                            <label><input type="radio" name="ship" id="NY" checked="zoomin_newyork()" /> New York</label>
-                            <label><input type="radio" name="ship" id="ML" checked="zoomin_newyork()" /> Maryland</label>
-                            <label><input type="radio" name="ship" id="WC" checked="zoomin_wisconsin()" /> Wisconsin</label>
-
-                        </div>
--->
-
-                    <!--                </div>-->
-
                     <h5 class="card-header">Parameters</h5>
                     <div class="card-body">
                         <div class="row">
@@ -164,12 +131,13 @@
             <div class="card text-center">
                 <h5 class="card-header">Select State</h5>
                 <div class="card-body">
-                    <select id="dropdown_state_phase1">
-                        <option value="New York">New York</option>
-                        <option value="Maryland">Maryland</option>
-                        <option value="Wisconsin">Wisconsin</option>
-                    </select>
-                    <button type="button" onclick="phase1_select_state()">Selected</button>
+                    <div class="card-body">
+                        <select id="phase1_dropdown_state" onchange="phase1_select_state()">
+                            <option value="New York">New York</option>
+                            <option value="Maryland">Maryland</option>
+                            <option value="Wisconsin">Wisconsin</option>
+                        </select>
+                    </div>
 
                 </div>
                 <header class="card-header">
@@ -209,7 +177,7 @@
                     </header>
                     <input type="number" name="quantity" id="iterationRate" min="1" max="100">
 
-                    <header class="card-header">
+                    <header class="card-header" onchange ="phaseStatus()">
                         <p>Select Phase
                             <p>
                     </header>
