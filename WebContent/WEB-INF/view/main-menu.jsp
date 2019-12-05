@@ -55,9 +55,11 @@
                 
                 
                   <script>
-                    function change(){
-                        console.log(document.getElementById("dropdown_state").value);
-                        }
+                  var phase0_selected_state;
+                    function phase0_select_state(){
+                    	phase0_selected_state = document.getElementById("dropdown_state").value;
+                    }
+                    
                     </script>
                 <div class="card text-center">
                     <h5 class="card-header">Select State</h5>
@@ -67,8 +69,6 @@
                             <option value="Maryland">Maryland</option>
                             <option value="Wisconsin">Wisconsin</option>
                         </select>
-                        <button type="button" onclick="phase0_select_state()">Selected</button>
-
                     </div>
                     
                   
@@ -226,179 +226,7 @@
         </div>
     </div>
     </div>
-<!--
-    <script>
-        var map = L.map('map').setView([43, -83], 4.5);
 
-        L
-            .tileLayer(
-                'https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
-                    maxZoom: 18,
-                    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-                        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-                        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-                    id: 'mapbox.light'
-                }).addTo(map);
-
-        // control that shows state info on hover
-        var info = L.control();
-
-        info.onAdd = function(map) {
-            this._div = L.DomUtil.create('div', 'info');
-            this.update();
-            return this._div;
-        };
-
-        info.update = function(props) {
-
-            this._div.innerHTML = '<h4>US Population Density</h4>' +
-                (props ? '<table><tr><th>' + '<b>Name</b>' + '</th><th>' +
-                    '<b>Density</b>' + '</th></tr><tr><td>' +
-                    props.name + '</td><td>' + props.density +
-                    '</td></tr><tr><td>' + props.name + '</td><td>' +
-                    props.density + '</td></tr></table>' :
-                    'Hover over a state');
-        };
-
-        info.addTo(map);
-
-        // get color depending on population density value
-        function getColor(d) {
-            return d > 1000 ? '#800026' :
-                /*   d > 500 ? '#44f2ef' :
-                  d > 200 ? '#a278eb' :
-                  d > 100 ? '#3071b8' : */
-                d > 500 ? '#BD0026' : d > 200 ? '#E31A1C' : d > 100 ? '#FC4E2A' :
-                d > 50 ? '#FD8D3C' : d > 20 ? '#FEB24C' :
-                d > 10 ? '#FED976' : '#FFEDA0';
-        }
-
-        function style(feature) {
-            return {
-                weight: 2,
-                opacity: 1,
-                color: 'white',
-                dashArray: '3',
-                fillOpacity: 0.7,
-                fillColor: getColor(feature.properties.density)
-            };
-        }
-
-        function highlightFeature(e) {
-            var layer = e.target;
-            
-            layer.setStyle({
-                weight: 5,
-                color: '#666',
-                dashArray: '',
-                fillOpacity: 0.7
-            });
-
-            if (!L.Browser.ie && !L.Browser.opera && !L.Browser.edge) {
-                layer.bringToFront();
-            }
-         
-            info.update(layer.feature.properties);
-            
-            var zoom_level = 4;
-            // get zoom level
-            
-            var hover_endpoint = "hover_state";
-            // setting default url endpoint
-            if(zoom_level == 5){
-                hover_endpoint = "hover_precinct";
-            }
-            else if(zoom_level == 6){
-                hover_endpoint = "hover_district";    
-            }
-          
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "/spring-mvc-demo/controller/"+hover_endpoint,
-                data: e.target.feature.properties.name,
-                async: false,
-                dataType: 'text',
-                success: function(data) {
-                    console.log(data);
-                }
-            });
-           
-        }
-
-        var geojson;
-
-        function resetHighlight(e) {
-            geojson.resetStyle(e.target);
-            info.update();
-        }
-	
-        function zoomToFeature(e) {
-            map.fitBounds(e.target.getBounds());
-            console.log("zoom");
-            
-            var zoom_endpoint = "zoom_precinct";
-
-            var zoom_level = 4;
-            // get zoom level
-            
-            if(zoom_level == 5){
-                zoom_endpoint = "zoom_precinct";
-            }
-            else if(zoom_level == 6){
-                zoom_endpoint = "zoom_district";    
-            }
-//            console.log(zoom_endpoint);
-            $.ajax({
-                type: "POST",
-                contentType: "application/json",
-                url: "/spring-mvc-demo/controller/"+zoom_endpoint,
-                data: e.target.feature.properties.name,
-//                async: false,
-                dataType: 'json',
-                success: function(data) {
-                    console.log(data);
-                }
-            });
-        }
-//            console.log(e.target.feature.properties.name);
-       
-
-        function clickStates(target_state) {
-            map.fitBounds(target_state.getBounds());
-        }
-
-        function zoomin_newyork() {
-            clickStates(geojson._layers[53]);
-        }
-
-        function zoomin_maryland() {
-            clickStates(geojson._layers[57]);
-        }
-
-        function zoomin_wisconsin() {
-            clickStates(geojson._layers[54]);
-        }
-
-        function onEachFeature(feature, layer) {
-            layer.on({
-                mouseover: highlightFeature,
-                mouseout: resetHighlight,
-                click: zoomToFeature
-
-            });
-        }
-
-        geojson = L.geoJson(statesData, {
-            style: style,
-            onEachFeature: onEachFeature
-        }).addTo(map);
-
-        map.attributionControl
-            .addAttribution('Population data &copy; <a href="http://census.gov/">US Census Bureau</a>');
-
-    </script>
--->
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
         var dropdown = document.getElementsByClassName("dropdown-btn");

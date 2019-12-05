@@ -43,6 +43,16 @@
                 d > 10 ? '#FED976' : '#FFEDA0';
         }
 
+        function getPrecinctColor(d){
+            return d > 500 ? '#AB08B7' :
+                /*   d > 500 ? '#44f2ef' :
+                  d > 200 ? '#a278eb' :
+                  d > 100 ? '#3071b8' : */
+                d > 200 ? '#5408B7' : d > 100 ? '#0814B7' : d > 50 ? '#086BB7' :
+                d > 25 ? '#58A9E8' : d > 10 ? '#84BAE3' :
+                d > 5 ? '#B3CFE5' : '#D8E5F0';
+        }
+
         function style(feature) {
             return {
                 weight: 2,
@@ -51,6 +61,17 @@
                 dashArray: '3',
                 fillOpacity: 0.7,
                 fillColor: getColor(feature.properties.density)
+            };
+        }
+
+        function precinct_style(feature){
+             return {
+                weight: 2,
+                opacity: 1,
+                color: '#086BB7',
+                dashArray: '3',
+                fillOpacity: 0.7,
+                fillColor: '#58A9E8'
             };
         }
 
@@ -119,30 +140,35 @@
 
             $.ajax({
                 type: "POST",
-//                contentType: "application/json",
+                //                contentType: "application/json",
                 url: "/spring-mvc-demo/controller/" + zoom_endpoint,
                 data: e.target.feature.properties.name,
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
                     precinct_data = data;
+                    var startTime = new Date().getTime();
+                    precinct_data['precincts'].forEach(function (precinct) {
+                        L.geoJson(JSON.parse(precinct), {
+                            precinct_style: style,
+                            onEachFeature: onEachFeature
+                        }).addTo(map);
+                    });
+                    var endTime = new Date().getTime();
                     
-//                    var geojsonLayer = L.geoJson(precinct_data['precincts'][0], {
-//                    	style: style,
-//                    	onEachFeature: onEachFeature
-//                    }).addTo(map);
-//                    
-//                    map.fitBounds(geojsonLayer.getBounds());
-//                    map.fitBounds(precinct_data[0].getBounds());
-//                    var precinct_array = JSON.parse(precinct_data);
-//                      precinct_data['precincts'].forEach(item => L.geoJSON(item).addTo(map));
-//                      precinct_array.forEach(function(element){
-//                         L.geoJSON(element).addTo(map);
-//                      });
+                    console.log(endTime - startTime);
+
+                    //                    
+                    //                    map.fitBounds(geojsonLayer.getBounds());
+                    //                    map.fitBounds(precinct_data[0].getBounds());
+                    //                    var precinct_array = JSON.parse(precinct_data);
+                    //                      precinct_data['precincts'].forEach(item => L.geoJSON(item).addTo(map));
+                    //                      precinct_array.forEach(function(element){
+                    //                         L.geoJSON(element).addTo(map);
+                    //                      });
                 }
             });
-            
-            
+
+
 
 
         }

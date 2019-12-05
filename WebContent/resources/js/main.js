@@ -10,7 +10,7 @@ var StateNameWC = statesData.features[2].properties.name;
 var densityWC = statesData.features[2].properties.density;
 var electionTerms = [];
 var phase1_selectedDemo = [];
-var phase0_stateData = phase0_select_state();
+var phase0_stateData = phase0_selected_state;
 var phase1_stateData = phase1_select_state();
 var phaseStatus = select_phase();
 
