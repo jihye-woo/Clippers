@@ -10,19 +10,21 @@ var StateNameWC = statesData.features[2].properties.name;
 var densityWC = statesData.features[2].properties.density;
 var electionTerms = [];
 var phase1_selectedDemo = [];
-var phase0_stateData = phase0_selected_state;
-var phase1_stateData = phase1_selected_state;
+var phase0_stateData;
+var phase1_stateData;
 var phaseStatus = select_phase();
 
 // dropdown script
-var phase0_selected_state;
+//var phase0_selected_state;
   function phase0_select_state(){
-  	phase0_selected_state = document.getElementById("phase0_dropdown_state").value;
-  }
+	  phase0_stateData = document.getElementById("phase0_dropdown_state").value;
+	  console.log(phase0_stateData);
+  	}
   
-var phase1_selected_state;
+//var phase1_selected_state;
 	function phase1_select_state(){
-		phase1_selected_state = document.getElementById("phase1_dropdown_state").value;
+		phase1_stateData = document.getElementById("phase1_dropdown_state").value;
+		console.log(phase1_stateData);
 	}
 
 function checked_electionTerm() {
@@ -60,7 +62,7 @@ var btn_phase0 = document.getElementById("phase0_button");
 btn_phase0.onclick = function (props) {
 
     var phase0_data = {
-        "stateName": phase0_selected_state,
+        "stateName": phase0_stateData,
         "phase0_population_min": document.getElementById("phase0_population_min").value,
         "phase0_population_max": document.getElementById("phase0_population_max").value,
         "phase0_vote_min": document.getElementById("phase0_vote_min").value,
@@ -85,15 +87,17 @@ var btn_phase1 = document.getElementById("phase1_start_button");
 btn_phase1.onclick = function (props) {
 
     var phase1_data = {
-        "stateName": phase1_selected_state,
+        "stateName": phase1_stateData,
         "demographicGroup": phase1_selectedDemo,
-        "numOfDistrict_min": document.getElementById("phase1_district_min").value,
-        "numOfDistrict_max": document.getElementById("phase1_district_max").value,
-        "majMinDistricts": document.getElementById("phase1_population_val").value,
+        "phase1_district_min": document.getElementById("phase1_district_min").value,
+        "phase1_district_max": document.getElementById("phase1_district_max").value,
+        "phase1_population_val": document.getElementById("phase1_population_val").value,
         "iterationRate": document.getElementById("iterationRate").value
     }
 
     if (phaseStatus == "Phase1") {
+    	console.log(phase1_data);
+    	
         $.ajax({
             type: "POST",
             contentType: "application/json",
@@ -140,12 +144,13 @@ function closeNav2() {
 }
 
 function select_phase() {
-    var phase = document.getElementsByName('phase');
-    var i;
-    for (i = 0; i < phase.length; i++) {
-        if (phase[i].checked) {
-            phaseStatus = phase[i].value;
-        }
-    }
-}
+	  var phase = document.getElementsByName('phase');
+	  var i;
+	  for (i = 0; i < phase.length; i++) {
+	    if (phase[i].checked) {
+	     console.log(phase[i].value);
+         phaseStatus = phase[i].value;
+	    }
+	  }
+	}
 

@@ -1,6 +1,6 @@
 package com.luv2code.springdemo.region;
 
-import java.util.List;
+import java.util.Set;
 
 import com.luv2code.springdemo.summary.StateSummary; 
 
@@ -8,9 +8,9 @@ public class State extends Region {
 	private int stateId;
 	private String stateName;
 	private float majMinPoint;
-	private List<District> originalDistricts;
-	private List<Cluster> clusters;
-	private List<Precincts> precincts;
+	private Set<District> originalDistricts;
+	private Set<Cluster> clusters;
+	private Set<Precincts> precincts;
 	private int numberOfDistricts;
 	
 	public State(String stateName) {
@@ -18,15 +18,15 @@ public class State extends Region {
 		this.stateName = stateName;
 	}
 	
-	public void saveCluster(List<Cluster> clusters) {
+	public void saveCluster(Set<Cluster> clusters) {
 		return;
 	}
 	
-	public List<Cluster> initClusters(){
+	public Set<Cluster> initClusters(){
 		return clusters;
 	}
 	
-	public void saveRedistrictedDistrict(List<Cluster> clusters) {
+	public void saveRedistrictedDistrict(Set<Cluster> clusters) {
 		return;
 	}
 	
@@ -34,11 +34,11 @@ public class State extends Region {
 		return new StateSummary();
 	}
 	
-	public List<Edge> getMmCandidateEdges(){
+	public Set<Edge> getMmCandidateEdges(){
 		return null;
 	}
 	
-	public List<Edge> getNonMmCandidateEdges(){
+	public Set<Edge> getNonMmCandidateEdges(){
 		return null;
 	}
 	

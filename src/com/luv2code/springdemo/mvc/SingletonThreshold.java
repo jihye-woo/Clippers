@@ -1,9 +1,7 @@
 package com.luv2code.springdemo.mvc;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
-
-import org.json.simple.parser.JSONParser;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.luv2code.springdemo.enumerations.DemographicGroup;
 import com.luv2code.springdemo.enumerations.ElectionTerm;
@@ -14,8 +12,8 @@ public class SingletonThreshold {
 	static public float blocPopulationMaxPercentage;
 	static public float blocVotingMinPercentage;
 	static public float blocVotingMaxPercentage;
-	static public List<DemographicGroup> demoGroup;
-	static public List<ElectionTerm> electionTerms;
+	static public Set<DemographicGroup> demoGroup;
+	static public Set<ElectionTerm> electionTerms;
 	static public HashMap<String, Integer> districtNumberGoals;
 	static public float joinabilityPercentage;
 	
@@ -25,7 +23,7 @@ public class SingletonThreshold {
 		blocVotingMinPercentage = 50;
 		blocVotingMaxPercentage = 50;
 		
-		List<DemographicGroup> demoGroup = new ArrayList();
+		Set<DemographicGroup> demoGroup = new HashSet();
 	}
 	
 	public static SingletonThreshold getSingletonThreshold() {
@@ -35,7 +33,7 @@ public class SingletonThreshold {
 		return singleton;
 	}
 	
-	public static void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, List<ElectionTerm> terms) {
+	public static void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, Set<ElectionTerm> terms) {
 		blocPopulationMinPercentage = popMin;
 		blocPopulationMaxPercentage = popMax;
 		blocVotingMinPercentage = votingMin;
@@ -43,7 +41,7 @@ public class SingletonThreshold {
 		electionTerms = terms;
 	}
 	
-	static public List<DemographicGroup> getTargetPopulation() {
+	static public Set<DemographicGroup> getTargetPopulation() {
 		return demoGroup;
 	}
 	
@@ -78,7 +76,7 @@ public class SingletonThreshold {
 		blocVotingMaxPercentage = maxVote;
 	}
 	
-	static public List<ElectionTerm> getElecitonTerms() {
+	static public Set<ElectionTerm> getElecitonTerms() {
 		return electionTerms;
 	}
  }

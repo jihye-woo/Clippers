@@ -181,7 +181,6 @@
                 mouseover: highlightFeature,
                 mouseout: resetHighlight,
                 click: zoomToFeature
-
             });
         }
 

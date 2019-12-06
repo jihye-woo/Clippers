@@ -1,13 +1,9 @@
 package com.luv2code.springdemo.mvc;
 
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
+import java.util.Set;
 
 import org.codehaus.jackson.JsonParseException;
 import org.codehaus.jackson.map.JsonMappingException;
@@ -56,7 +52,7 @@ public class Controller {
 			
 			JSONArray electionTerms_arr = (JSONArray) jsonObject.get("electionTerms");
 			
-			ArrayList<ElectionTerm> electionTerms = new ArrayList<ElectionTerm>();     
+			Set<ElectionTerm> electionTerms = new HashSet<ElectionTerm>();     
 			JSONArray jsonArray = (JSONArray) electionTerms_arr; 
 			if (jsonArray != null) { 
 			   int len = jsonArray.size();
@@ -66,8 +62,7 @@ public class Controller {
 			}
 			
 			// get Precincts(stateName : String))
-			ArrayList<Precincts> precicnts = new ArrayList<Precincts>();
-//			ArrayList<PrecinctSummary> precicnts_summary = new ArrayList<PrecinctSummary>();
+			Set<Precincts> precicnts = new HashSet<Precincts>();
 			JSONArray precinctIds = new JSONArray();
 			
 			SingletonThreshold.saveThreshold(phase0_population_min, phase0_population_max,
@@ -102,20 +97,27 @@ public class Controller {
 //		JSONArray demographicGroup = new JSONArray();
 		ObjectMapper mapper = new ObjectMapper();
 		boolean isResumed = true;
-		List<Cluster> clusters = new ArrayList<Cluster>();
+		Set<Cluster> clusters = new HashSet<Cluster>();
 		State selectedState = null;
 		// 나중에 client side에서 받아와야함
 
 		try {
 			jsonObject = (JSONObject) jsonParser.parse(phase1_data);
 			String stateName = (String) jsonObject.get("stateName");
-			String demo_jsonString = (String) jsonObject.get("demographicGroup");
-			ArrayList<String> demographicGroup = (ArrayList<String>) mapper.readValue(demo_jsonString, Map.class);
-
-			Float numOfDistrict_min = Float.valueOf((String) jsonObject.get("phase0_population_max"));
-			Float numOfDistrict_max = Float.valueOf((String) jsonObject.get("phase0_vote_min"));
-			Float majMinDistricts = Float.valueOf((String) jsonObject.get("phase0_vote_max"));
-			Float iterationRate = Float.valueOf((String) jsonObject.get("phase0_vote_max"));
+			
+			JSONArray demo_jsonArray = (JSONArray) jsonObject.get("demographicGroup");
+			
+			Set<ElectionTerm> electionTerms = new HashSet<ElectionTerm>();
+			if (demo_jsonArray != null) { 
+			   int len = demo_jsonArray.size();
+			   for (int i=0;i<len;i++){ 
+				   electionTerms.add(selectedTerm(demo_jsonArray.get(i).toString()));
+			   } 
+			}
+			Float numOfDistrict_min = Float.valueOf((String) jsonObject.get("phase1_district_min"));
+			Float numOfDistrict_max = Float.valueOf((String) jsonObject.get("phase1_district_max"));
+			Float majMinDistricts = Float.valueOf((String) jsonObject.get("phase1_population_val"));
+			Float iterationRate = Float.valueOf((String) jsonObject.get("iterationRate"));
 
 			// 2.
 			if (isResumed || selectedState == null) {
@@ -127,17 +129,7 @@ public class Controller {
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} catch (JsonParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
+		} 
 		return new ResponseEntity<>(phase1_data, HttpStatus.CREATED);
 	}
 

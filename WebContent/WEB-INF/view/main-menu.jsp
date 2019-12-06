@@ -52,20 +52,16 @@
             <div class="container">
                 <h1 id=sidebar_header style="margin-bottom: 2rem;">Phase 0</h1>
 
-                
-                
-                
-                    
                 <div class="card text-center">
                     <h5 class="card-header">Select State</h5>
                     <div class="card-body">
-                        <select id="phase0_dropdown_state" onchange="phase0_select_state()" style = "color: black">
+                        <select id="phase0_dropdown_state" onchange="phase0_select_state()" style="color: black">
                             <option value="New York">New York</option>
                             <option value="Maryland">Maryland</option>
                             <option value="Wisconsin">Wisconsin</option>
                         </select>
                     </div>
-                    
+
                     <h5 class="card-header">Parameters</h5>
                     <div class="card-body">
                         <div class="row">
@@ -177,12 +173,23 @@
                     </header>
                     <input type="number" name="quantity" id="iterationRate" min="1" max="100">
 
-                    <header class="card-header" onchange ="phaseStatus()">
+                    <header class="card-header">
                         <p>Select Phase
                             <p>
                     </header>
+
+                    <!--
+                    <div class="btn-group btn-group-toggle" data-toggle="buttons"  onchange="select_phase()">
+                        <label class="btn btn-secondary active">
+                            <input type="radio" name="options" value= "Phase1" id="option1" autocomplete="off" checked> Phase 1
+                        </label>
+                        <label class="btn btn-secondary">
+                            <input type="radio" name="options" value= "Phase2" id="option2" autocomplete="off"> Phase 2
+                        </label>
+                    </div>
+-->
                     <form>
-                        <input type="radio" name="phase" value="Phase1" /> Phase 1 <input type="radio" name="phase" value="Phase2" checked /> Phase 2 <input type="button" onclick="select_phase()" value="Selected">
+                        <input type="radio" name="phase" value="Phase1" checked/> Phase 1 <input type="radio" name="phase" value="Phase2" /> Phase 2 <input type="button" onclick="select_phase()" value="Selected">
                     </form>
                 </div>
             </div>
