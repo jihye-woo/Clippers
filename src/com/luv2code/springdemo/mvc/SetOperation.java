@@ -1,7 +1,7 @@
 package com.luv2code.springdemo.mvc;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import com.luv2code.springdemo.region.Cluster;
 import com.luv2code.springdemo.region.Edge;
@@ -12,22 +12,22 @@ public class SetOperation {
 		
 	}
 	
-	public List<Cluster> getDifference(List<Cluster> c1s, List<Cluster> c2s){
-		return new ArrayList<Cluster>();
+	public Set<Cluster> getDifference(Set<Cluster> c1s, Set<Cluster> c2s){
+		return new HashSet<Cluster>();
 	}
-	public List<Edge> getAllEdges(List<Cluster> clusters){
-		return new ArrayList<Edge>();
-	}
-	
-	public List<Edge> getMaxMatching(List<Cluster> clusters){
-		return new ArrayList<Edge>();
+	public static Set<Edge> getAllEdges(Set<Cluster> clusters){
+		return new HashSet<Edge>();
 	}
 	
-	public Cluster getMinPopCluster(List<Cluster> clusters) {
+	public static Set<Edge> getMaxMatching(Set<Edge> clusters){
+		return new HashSet<Edge>();
+	}
+	
+	public Cluster getMinPopCluster(Set<Cluster> clusters) {
 		return new Cluster();
 	}
 	
-	public List<Cluster> joinCandiatePairs(List<Edge> edges){
-		return new ArrayList<Cluster>();
+	public static Set<Cluster> joinCandiatePairs(Set<Edge> edges){
+		return new HashSet<Cluster>();
 	}
 }

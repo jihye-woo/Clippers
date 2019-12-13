@@ -56,7 +56,7 @@
                     <h5 class="card-header">Select State</h5>
                     <div class="card-body">
                         <select id="phase0_dropdown_state" onchange="phase0_select_state()" style="color: black">
-                            <option value="New York">New York</option>
+                            <option value="Michigan">Michigan</option>
                             <option value="Maryland">Maryland</option>
                             <option value="Wisconsin">Wisconsin</option>
                         </select>
@@ -129,7 +129,7 @@
                 <div class="card-body">
                     <div class="card-body">
                         <select id="phase1_dropdown_state" onchange="phase1_select_state()">
-                            <option value="New York">New York</option>
+                            <option value="Michigan">Michigan</option>
                             <option value="Maryland">Maryland</option>
                             <option value="Wisconsin">Wisconsin</option>
                         </select>
@@ -195,9 +195,10 @@
             </div>
         </div>
 
-        <div class="container">
-            <button type="button" id="phase1_start_button" class="btn btn-primary btn-lg btn-block">Start/Continue</button>
-            <button type="button" id="phase1_pause_button" class="btn btn-primary btn-lg btn-block">Pause</button>
+        <div class="container" id="phase1btn">
+            <button type="button" id="phase1_start_button" value = "Start" class="btn btn-primary btn-lg btn-block">Start</button>
+            <button type="button" id="phase1_pause_button" value = "Pause" class="btn btn-primary btn-lg btn-block">Pause</button>
+            <button type="button" id="phase1_stop_button" value = "Stop" class="btn btn-primary btn-lg btn-block">Stop</button>
         </div>
     </div>
     </div>

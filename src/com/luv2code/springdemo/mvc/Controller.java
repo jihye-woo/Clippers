@@ -5,8 +5,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import org.codehaus.jackson.JsonParseException;
-import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -21,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.luv2code.springdemo.dao.PrecinctDAO;
+import com.luv2code.springdemo.enumerations.DemographicGroup;
 import com.luv2code.springdemo.enumerations.ElectionTerm;
 import com.luv2code.springdemo.region.Cluster;
 import com.luv2code.springdemo.region.Precincts;
@@ -39,35 +38,35 @@ public class Controller {
 	}
 
 	@RequestMapping(value = "/phase0_data", method = RequestMethod.POST, produces = "application/json")
-	public ResponseEntity<String> runPhase0(@RequestBody String phase0_data){
+	public ResponseEntity<String> runPhase0(@RequestBody String phase0_data) {
 		JSONObject jsonObject;
 		JSONObject returnData = new JSONObject();
 		try {
 			jsonObject = (JSONObject) jsonParser.parse(phase0_data);
 			String stateName = (String) jsonObject.get("stateName");
+			System.out.println(stateName);
 			Float phase0_population_min = Float.valueOf((String) jsonObject.get("phase0_population_min"));
-			Float phase0_population_max =  Float.valueOf((String) jsonObject.get("phase0_population_max"));
-			Float phase0_vote_min = Float.valueOf((String)jsonObject.get("phase0_vote_min"));
-			Float phase0_vote_max = Float.valueOf((String)jsonObject.get("phase0_vote_max"));
-			
+			Float phase0_population_max = Float.valueOf((String) jsonObject.get("phase0_population_max"));
+			Float phase0_vote_min = Float.valueOf((String) jsonObject.get("phase0_vote_min"));
+			Float phase0_vote_max = Float.valueOf((String) jsonObject.get("phase0_vote_max"));
 			JSONArray electionTerms_arr = (JSONArray) jsonObject.get("electionTerms");
-			
-			Set<ElectionTerm> electionTerms = new HashSet<ElectionTerm>();     
-			JSONArray jsonArray = (JSONArray) electionTerms_arr; 
-			if (jsonArray != null) { 
-			   int len = jsonArray.size();
-			   for (int i=0;i<len;i++){ 
-				   electionTerms.add( selectedTerm(jsonArray.get(i).toString()) );
-			   } 
+
+			Set<ElectionTerm> electionTerms = new HashSet<ElectionTerm>();
+			JSONArray jsonArray = (JSONArray) electionTerms_arr;
+			if (jsonArray != null) {
+				int len = jsonArray.size();
+				for (int i = 0; i < len; i++) {
+					electionTerms.add(selectedTerm(jsonArray.get(i).toString()));
+				}
 			}
-			
+
 			// get Precincts(stateName : String))
 			Set<Precincts> precicnts = new HashSet<Precincts>();
 			JSONArray precinctIds = new JSONArray();
-			
-			SingletonThreshold.saveThreshold(phase0_population_min, phase0_population_max,
-					phase0_vote_min, phase0_vote_max, electionTerms);
-			
+
+			SingletonThreshold.saveThreshold(phase0_population_min, phase0_population_max, phase0_vote_min,
+					phase0_vote_max, electionTerms);
+
 //			for(Precincts p :precicnts) {
 //				boolean isBloc = p.precinctIsBloc();
 //				if(isBloc) {
@@ -77,15 +76,15 @@ public class Controller {
 //					precinctIds.add(id);
 //				}
 //			}
-			
+
 //			returnData.put("precinct_id", precinctIds);
-			
+
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 //		return new ResponseEntity<>(returnData.toString(), HttpStatus.OK);
 		return new ResponseEntity<>(phase0_data, HttpStatus.OK);
-		
+
 	}
 
 	@RequestMapping(value = "/phase1_data", method = RequestMethod.POST, produces = "application/json")
@@ -97,47 +96,65 @@ public class Controller {
 //		JSONArray demographicGroup = new JSONArray();
 		ObjectMapper mapper = new ObjectMapper();
 		boolean isResumed = true;
+		boolean isPerIteration = false;
 		Set<Cluster> clusters = new HashSet<Cluster>();
 		State selectedState = null;
-		// 나중에 client side에서 받아와야함
 
 		try {
 			jsonObject = (JSONObject) jsonParser.parse(phase1_data);
 			String stateName = (String) jsonObject.get("stateName");
-			
+
 			JSONArray demo_jsonArray = (JSONArray) jsonObject.get("demographicGroup");
-			
-			Set<ElectionTerm> electionTerms = new HashSet<ElectionTerm>();
-			if (demo_jsonArray != null) { 
-			   int len = demo_jsonArray.size();
-			   for (int i=0;i<len;i++){ 
-				   electionTerms.add(selectedTerm(demo_jsonArray.get(i).toString()));
-			   } 
+
+			Set<DemographicGroup> demographics = new HashSet<DemographicGroup>();
+			if (demo_jsonArray != null) {
+				int len = demo_jsonArray.size();
+				for (int i = 0; i < len; i++) {
+					demographics.add(selectedDemo(demo_jsonArray.get(i).toString()));
+				}
 			}
+
 			Float numOfDistrict_min = Float.valueOf((String) jsonObject.get("phase1_district_min"));
 			Float numOfDistrict_max = Float.valueOf((String) jsonObject.get("phase1_district_max"));
 			Float majMinDistricts = Float.valueOf((String) jsonObject.get("phase1_population_val"));
 			Float iterationRate = Float.valueOf((String) jsonObject.get("iterationRate"));
 
-			// 2.
-			if (isResumed || selectedState == null) {
-				selectedState = new State(stateName);
-			} else {
-				clusters = selectedState.initClusters();
-			}
+			// 2. get into the algorithm
+//			if (isResumed || selectedState == null) {
+//				selectedState = new State(stateName);
+//			}
+//			
+//			clusters = selectedState.initClusters();
+//			int numDistricts = selectedState.getNumberOfDistricts();
+//			
+//			while(clusters.size() >= numDistricts) {
+//				Set<Edge> candidatePairs = selectedState.getMmCandidateEdges(clusters);
+//				Set<Edge> maxAvailablePairs = SetOperation.getMaxMatching(candidatePairs);
+//				Set<Cluster> leftOverClusters;
+//				if(clusters.size()-maxAvailablePairs.size() > numDistricts) {
+//					leftOverClusters = SetOperation.joinCandiatePairs(maxAvailablePairs);
+//				} else {
+//					selectedState.finalIteration();
+//				}
+//				
+//				if(isPerIteration) {
+//					break;
+//				}
+//				
+//			}
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} 
+		}
 		return new ResponseEntity<>(phase1_data, HttpStatus.CREATED);
 	}
 
-//	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
-//	public ResponseEntity<String> runPhase2(@RequestBody String phase2_data){
-//		
-//		return new ResponseEntity<>(phase2_data, HttpStatus.CREATED);
-//	}
+	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
+	public ResponseEntity<String> runPhase2(@RequestBody String phase2_data) {
+
+		return new ResponseEntity<>(phase2_data, HttpStatus.CREATED);
+	}
 
 //	@RequestMapping(value = "/phase2_data", method = RequestMethod.POST, produces = "application/json")
 //	public ModelAndView runPhase2(@RequestBody String phase2_data){
@@ -151,6 +168,19 @@ public class Controller {
 			return ElectionTerm.Congressional2016;
 		}
 		return ElectionTerm.Congressional2018;
+	}
+
+	public DemographicGroup selectedDemo(String demo) {
+		if (demo == "White") {
+			return DemographicGroup.White;
+		} else if (demo == "Hispanic") {
+			return DemographicGroup.Hispanic;
+		} else if(demo=="AfricanAmerican") {
+			return DemographicGroup.AfricanAmerican;
+		} else if(demo=="Asian") {
+			return DemographicGroup.Asian;
+		} 
+		else return DemographicGroup.NativeAmerican;
 	}
 
 	@RequestMapping(value = "/hover_state", method = RequestMethod.POST)
@@ -189,7 +219,6 @@ public class Controller {
 //			System.out.println(precinct_geojson);
 		}
 		object.put("precincts", array);
-
 		String returnData = object.toJSONString(); 
 		return new ResponseEntity<>(returnData, HttpStatus.CREATED);
 	}

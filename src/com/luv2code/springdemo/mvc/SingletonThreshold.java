@@ -76,7 +76,7 @@ public class SingletonThreshold {
 		blocVotingMaxPercentage = maxVote;
 	}
 	
-	static public Set<ElectionTerm> getElecitonTerms() {
+	static public Set<ElectionTerm> getElectionTerms() {
 		return electionTerms;
 	}
  }

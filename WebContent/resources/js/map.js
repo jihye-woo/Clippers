@@ -127,16 +127,12 @@
             map.fitBounds(e.target.getBounds());
             console.log("zoom");
 
+//            var zoom_endpoint = "select_state";
             var zoom_endpoint = "zoom_precinct";
+//            var zoom_endpoint = "select_district";
 
             var zoom_level = map.getZoom();
             // get zoom level
-
-            if (zoom_level == 5) {
-                zoom_endpoint = "zoom_precinct";
-            } else if (zoom_level == 6) {
-                zoom_endpoint = "zoom_district";
-            }
 
             $.ajax({
                 type: "POST",
@@ -162,18 +158,6 @@
 
         function clickStates(target_state) {
             map.fitBounds(target_state.getBounds());
-        }
-
-        function zoomin_newyork() {
-            clickStates(geojson._layers[53]);
-        }
-
-        function zoomin_maryland() {
-            clickStates(geojson._layers[57]);
-        }
-
-        function zoomin_wisconsin() {
-            clickStates(geojson._layers[54]);
         }
 
         function onEachFeature(feature, layer) {

@@ -10,9 +10,10 @@ var StateNameWC = statesData.features[2].properties.name;
 var densityWC = statesData.features[2].properties.density;
 var electionTerms = [];
 var phase1_selectedDemo = [];
-var phase0_stateData;
-var phase1_stateData;
+var phase0_stateData = "Michigan";
+var phase1_stateData = "Michigan";
 var phaseStatus = select_phase();
+var isPause = false;
 
 // dropdown script
 //var phase0_selected_state;
@@ -75,17 +76,26 @@ btn_phase0.onclick = function (props) {
         contentType: "application/json",
         url: "/spring-mvc-demo/controller/phase0_data",
         data: JSON.stringify(phase0_data),
-        async: false,
         dataType: 'json',
         success: function (data) {
             console.log(data);
+            console.log(data['stateName']);
         }
     });
 }
 
-var btn_phase1 = document.getElementById("phase1_start_button");
-btn_phase1.onclick = function (props) {
+var phase1_btn_pause = document.getElementById("phase1_pause_button");
+phase1_btn_pause.onclick = function (props){
+    if(isPause == false){
+        isPause = true;
+    } else{
+        isPause = true;
+    }
+}
 
+var phase1_btn_start = document.getElementById("phase1_start_button");
+phase1_btn_start.onclick = function (props) {
+//	updatePhase1Button(btn_phase1);
     var phase1_data = {
         "stateName": phase1_stateData,
         "demographicGroup": phase1_selectedDemo,
@@ -122,9 +132,6 @@ btn_phase1.onclick = function (props) {
             }
         });
     }
-
-
-
 }
 
 function openNav() {
