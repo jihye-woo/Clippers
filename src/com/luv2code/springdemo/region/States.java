@@ -8,7 +8,7 @@ import com.luv2code.springdemo.mvc.SetOperation;
 import com.luv2code.springdemo.mvc.SingletonThreshold;
 import com.luv2code.springdemo.summary.StateSummary; 
 
-public class State extends Region {
+public class States extends Region {
 	private int stateId;
 	private String stateName;
 	private float majMinPoint;
@@ -17,7 +17,7 @@ public class State extends Region {
 	private Set<Precincts> precincts;
 	private int numberOfDistricts;
 	
-	public State(String stateName) {
+	public States(String stateName) {
 		super();
 		this.stateName = stateName;
 	}
@@ -28,7 +28,7 @@ public class State extends Region {
 	
 	public Set<Edge> getMmCandidateEdges(Set<Cluster> clusters){
 		Set<Edge> candidateEdges = new HashSet<Edge>();
-		Set<ElectionTerm> electionTerms = SingletonThreshold.getElectionTerms();
+		ElectionTerm electionTerms = SingletonThreshold.getElectionTerm();
 		Set<Edge> allEdges = SetOperation.getAllEdges(clusters);
 		
 		for(Edge edge : allEdges) {
@@ -54,10 +54,6 @@ public class State extends Region {
 	public void finalIteration() {
 		return;
 	}
-	
-	
-	
-	
 	
 	// getter setter
 	

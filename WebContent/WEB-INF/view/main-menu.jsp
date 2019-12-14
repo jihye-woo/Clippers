@@ -22,10 +22,8 @@
     <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/us-states.js"></script>
-
-
+    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/test_precinct.js"></script>
 </head>
-
 <body>
     <!-- <article> -->
     <!--silder section-->
@@ -42,7 +40,9 @@
         <p id="dataTable"></p>
 
         <div id="mySidenav" class="sidenav">
-            <a href="#" id="phase0" onclick="openNav()">Phase0</a> <a href="#" id="phase1" onclick="openNav2()">Phase1,2 </a>
+            <a href="#" id="phase0" onclick="openNav()">Phase0</a> 
+            <a href="#" id="phase1" onclick="openNav2()">Phase1,2 </a>
+            <a href="#" id="settings" onclick="openSettings()">Settings </a>
         </div>
 
         <div id="mySidepanel" class="sidepanel" style="margin-top: 1rem; margin-left: 1rem;">
@@ -62,22 +62,6 @@
                         </select>
                     </div>
 
-                    <h5 class="card-header">Parameters</h5>
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col">
-                                <header class="card-header">
-                                    <h6 class="title">Election Term</h6>
-                                </header>
-                                <form>
-                                    <br> <input class="phase0_electionTerm" type="checkbox" name="16_congressional" id="16_congressional" onclick="checked_electionTerm()">2016 Congressional<br>
-                                    <input class="phase0_electionTerm" type="checkbox" name="18_congressional" id="18_congressional" onclick="checked_electionTerm()">2018 Congressional<br>
-                                    <input class="phase0_electionTerm" type="checkbox" name="18_presidential" id="18_presidential" onclick="checked_electionTerm()">2016 Presidential<br>
-                                    <br>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="row">
                         <div class="col">
@@ -88,8 +72,7 @@
 
                             <form method="post">
                                 <div data-role="rangeslider" data-mini="true">
-                                    <input type="range" name="phase0_population_val" id="phase0_population_min" value="20" min="0" max="100">
-                                    <input type="range" name="phase0_population_val" id="phase0_population_max" value="80" min="0" max="100">
+                                    <input type="range" name="phase0_population_val" id="phase0_population_val" value="80" min="0" max="100">
                                 </div>
                             </form>
 
@@ -100,7 +83,7 @@
                             </header>
                             <form method="post">
                                 <div data-role="rangeslider" data-mini="true">
-                                    <input type="range" name="phase0_vote_min" id="phase0_vote_min" value="20" min="0" max="100"> <input type="range" name="phase0_vote_max" id="phase0_vote_max" value="80" min="0" max="100">
+                                    <input type="range" name="phase0_population_val" id="phase0_population_val" value="80" min="0" max="100">
                                 </div>
                             </form>
 
@@ -154,8 +137,7 @@
                     </header>
                     <form method="post">
                         <div data-role="rangeslider" data-mini="true">
-                            <input type="range" name="phase1_district_min" id="phase1_district_min" value="200" min="0" max="1000">
-                            <input type="range" name="phase1_district_max" id="phase1_district_max" value="800" min="0" max="1000">
+                            <input type="range" name="phase1_district_val" id="phase1_district_val" value="800" min="0" max="1000">
                         </div>
                     </form>
 
@@ -173,6 +155,7 @@
                     </header>
                     <input type="number" name="quantity" id="iterationRate" min="1" max="100">
 
+           
                     <header class="card-header">
                         <p>Select Phase
                             <p>
@@ -202,7 +185,48 @@
         </div>
     </div>
     </div>
+       <div id="mySettings" class="sidepanel">
 
+      <a href="javascript:void(0)" class="closebtn"
+         onclick="closeSettings()">X</a>
+
+      <div class="container">
+
+         <h1 id=sidebar_header style="margin-bottom: 2rem;">Settings</h1>
+         <div class="card text-center">
+            <div class="row">
+               <div class="col">
+               <h5 class="card-header">Select election term</h5>
+               <div class="card-body">
+                     <select id="election_term" onchange="election_term()" style="color: black">
+                     <option value="2016_congressional">2016 Congressional</option>
+                     <option value="2018_congressional">2018 Congressional</option>
+                     <option value="2018_presidential">2016 Presidential</option>
+                  </select>
+               </div>
+               </div>
+
+            </div>
+            <h5 class="card-header">Map level</h5>
+            <div class="card-body">
+               <select id="map_level" onchange="map_level()" style="color: black">
+                  <option value="State">State</option>
+                  <option value="Precinct">Precinct</option>
+                  <option value="District">District</option>
+               </select>
+            </div>
+            <header class="card-header">
+               <p>Display Original and Generated<p>
+            </header>
+            <form>
+               <input type="radio" name="select" value="original_district" > Original district <br>
+               <input type="radio" name="select" value="generated_district" > Generated district<br>
+               <input type="button" onclick="select_district_toShow()" value="Display">
+            </form>
+         </div>
+      </div>
+   </div>
+    
     <script>
         /* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
         var dropdown = document.getElementsByClassName("dropdown-btn");

@@ -9,13 +9,13 @@ import com.luv2code.springdemo.summary.ClusterSummary;
 
 public class Cluster extends Region{
 	private int clusterId;
-	private Set<ElectionData> electiondata; 
+	private Set<ElectionData> electiondata;
+	private Set<Precincts> precincts;
 	
 	public Cluster() {
 		super();
 	}
 	
-
 	public ClusterSummary toSummary() {
 		return new ClusterSummary();
 	}

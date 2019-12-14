@@ -33,7 +33,7 @@ public class SingletonThreshold {
 		return singleton;
 	}
 	
-	public void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, ElectionTerm term) {
+	public static void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, ElectionTerm term) {
 		blocPopulationMinPercentage = popMin;
 		blocPopulationMaxPercentage = popMax;
 		blocVotingMinPercentage = votingMin;
@@ -76,7 +76,7 @@ public class SingletonThreshold {
 		blocVotingMaxPercentage = maxVote;
 	}
 	
-	public ElectionTerm getElectionTerm() {
+	static public ElectionTerm getElectionTerm() {
 		return electionTerm;
 	}
 	

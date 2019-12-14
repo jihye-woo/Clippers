@@ -28,7 +28,7 @@ import com.luv2code.springdemo.region.DemographicPopulation;
 import com.luv2code.springdemo.region.PartyVotes;
 import com.luv2code.springdemo.region.PrecinctElection;
 import com.luv2code.springdemo.region.Precincts;
-import com.luv2code.springdemo.region.State;
+import com.luv2code.springdemo.region.States;
 
 @RestController
 @RequestMapping("/controller")
@@ -60,23 +60,23 @@ public class Controller {
 			Float phase0_population_max = Float.valueOf((String) jsonObject.get("phase0_population_max"));
 			Float phase0_vote_min = Float.valueOf((String) jsonObject.get("phase0_vote_min"));
 			Float phase0_vote_max = Float.valueOf((String) jsonObject.get("phase0_vote_max"));
-			JSONArray electionTerms_arr = (JSONArray) jsonObject.get("electionTerms");
+			ElectionTerm electionTerm = selectedTerm((String) jsonObject.get("electionTerm"));
 
-			Set<ElectionTerm> electionTerms = new HashSet<ElectionTerm>();
-			JSONArray jsonArray = (JSONArray) electionTerms_arr;
-			if (jsonArray != null) {
-				int len = jsonArray.size();
-				for (int i = 0; i < len; i++) {
-					electionTerms.add(selectedTerm(jsonArray.get(i).toString()));
-				}
-			}
+//			Set<ElectionTerm> electionTerms = new HashSet<ElectionTerm>();
+//			JSONArray jsonArray = (JSONArray) electionTerms_arr;
+//			if (jsonArray != null) {
+//				int len = jsonArray.size();
+//				for (int i = 0; i < len; i++) {
+//					electionTerms.add(selectedTerm(jsonArray.get(i).toString()));
+//				}
+//			}
 
 			// get Precincts(stateName : String))
 			List<Precincts> precincts = precinctDAO.getPrecincts();
 			JSONArray precinctIds = new JSONArray();
 
-			SingletonThreshold.getSingletonThreshold().saveThreshold(phase0_population_min, phase0_population_max, phase0_vote_min,
-					phase0_vote_max, electionTerms);
+			SingletonThreshold.saveThreshold(phase0_population_min, phase0_population_max, phase0_vote_min,
+					phase0_vote_max, electionTerm);
 
 			for(Precincts p : precincts) {
 				if(precinctIsBloc(p)) {
@@ -106,7 +106,7 @@ public class Controller {
 		boolean isResumed = true;
 		boolean isPerIteration = false;
 		Set<Cluster> clusters = new HashSet<Cluster>();
-		State selectedState = null;
+		States selectedState = null;
 
 		try {
 			jsonObject = (JSONObject) jsonParser.parse(phase1_data);
@@ -122,18 +122,16 @@ public class Controller {
 				}
 			}
 
-			Float numOfDistrict_min = Float.valueOf((String) jsonObject.get("phase1_district_min"));
-			Float numOfDistrict_max = Float.valueOf((String) jsonObject.get("phase1_district_max"));
+			Float numDistricts = Float.valueOf((String) jsonObject.get("phase1_district_val"));
 			Float majMinDistricts = Float.valueOf((String) jsonObject.get("phase1_population_val"));
 			Float iterationRate = Float.valueOf((String) jsonObject.get("iterationRate"));
 
 			// 2. get into the algorithm
-//			if (isResumed || selectedState == null) {
-//				selectedState = new State(stateName);
-//			}
-//			
-//			clusters = selectedState.initClusters();
-//			int numDistricts = selectedState.getNumberOfDistricts();
+			if (isResumed) {
+				selectedState = new States(stateName);
+			}
+			
+			clusters = selectedState.initClusters();
 //			
 //			while(clusters.size() >= numDistricts) {
 //				Set<Edge> candidatePairs = selectedState.getMmCandidateEdges(clusters);
