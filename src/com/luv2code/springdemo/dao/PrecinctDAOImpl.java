@@ -22,7 +22,7 @@ public class PrecinctDAOImpl implements PrecinctDAO {
 
    @Override
    @Transactional
-   public List<String> getPrecincts() {
+   public List<String> getPrecinctsBoundaries() {
 
 //      Session currentSession = (Session) new Configuration().configure()
 //    		  .buildSessionFactory();
@@ -37,5 +37,15 @@ public class PrecinctDAOImpl implements PrecinctDAO {
       
       return precincts;
    }
+
+
+@Override
+public List<Precincts> getPrecincts() {
+	Session currentSession = sessionFactory.getCurrentSession();
+    
+    Query<Precincts> theQuery = currentSession.createQuery("from Precincts", Precincts.class);
+    List<Precincts> precincts = theQuery.getResultList();
+    return precincts;
+}
 
 }

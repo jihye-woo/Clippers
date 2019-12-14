@@ -6,6 +6,7 @@ import com.luv2code.springdemo.enumerations.ElectionTerm;
 import com.luv2code.springdemo.enumerations.PoliticalParty;
 
 public class ElectionData {
+	
 	ElectionTerm term;
 	HashMap<PoliticalParty, Long> votes;
 	PoliticalParty winningParty;

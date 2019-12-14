@@ -1,19 +1,30 @@
 package com.luv2code.springdemo.region;
 
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.luv2code.springdemo.enumerations.DemographicGroup;
+import com.luv2code.springdemo.mvc.SingletonThreshold;
 
 @Entity
 @Table(name = "Precincts")
 public class Precincts {
 
+	
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "pid")
@@ -28,8 +39,14 @@ public class Precincts {
 	@Column(name = "totalpopulation")
 	private int population;
 
-//	boolean isBloc;
-//	List<Edge> edges;
+	@OneToMany(fetch=FetchType.LAZY, mappedBy="precincts",
+			cascade= {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
+	private List<PrecinctElection> precinctElections;
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "precincts", cascade=CascadeType.ALL)
+	private Set<DemographicPopulation> demographicPopulation;
+	
+	boolean isBloc;
 	
 	public int getPrecinctId() {
 		return precinctId;
@@ -61,6 +78,22 @@ public class Precincts {
 
 	public void setPopulation(int population) {
 		this.population = population;
+	}
+
+	public List<PrecinctElection> getPrecinctElections() {
+		return precinctElections;
+	}
+
+	public void setPrecinctElections(List<PrecinctElection> precinctElections) {
+		this.precinctElections = precinctElections;
+	}
+
+	public Set<DemographicPopulation> getDemographicPopulation() {
+		return demographicPopulation;
+	}
+
+	public void setDemographicPopulation(Set<DemographicPopulation> demographicPopulation) {
+		this.demographicPopulation = demographicPopulation;
 	}
 
 	@Override

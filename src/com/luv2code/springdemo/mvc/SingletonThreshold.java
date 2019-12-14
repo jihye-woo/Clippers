@@ -13,7 +13,7 @@ public class SingletonThreshold {
 	static public float blocVotingMinPercentage;
 	static public float blocVotingMaxPercentage;
 	static public Set<DemographicGroup> demoGroup;
-	static public Set<ElectionTerm> electionTerms;
+	static public ElectionTerm electionTerm;
 	static public HashMap<String, Integer> districtNumberGoals;
 	static public float joinabilityPercentage;
 	
@@ -33,50 +33,51 @@ public class SingletonThreshold {
 		return singleton;
 	}
 	
-	public static void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, Set<ElectionTerm> terms) {
+	public void saveThreshold(float popMin, float popMax, float votingMin, float votingMax, ElectionTerm term) {
 		blocPopulationMinPercentage = popMin;
 		blocPopulationMaxPercentage = popMax;
 		blocVotingMinPercentage = votingMin;
 		blocVotingMaxPercentage = votingMax;
-		electionTerms = terms;
+		electionTerm = term;
 	}
 	
-	static public Set<DemographicGroup> getTargetPopulation() {
+	public Set<DemographicGroup> getTargetPopulation() {
 		return demoGroup;
 	}
 	
-	static public float getDemographicMin() {
+	public float getDemographicMin() {
 		return blocPopulationMinPercentage;
 	}
-	static public void setDemographicMin(float minDemo) {
+	public void setDemographicMin(float minDemo) {
 		blocPopulationMinPercentage = minDemo;
 	}
 	
-	static public float getDemographicMax() {
+	public float getDemographicMax() {
 		return blocPopulationMaxPercentage;
 	}
 	
-	static public void setDemographicMax(float maxDemo) {
+	public void setDemographicMax(float maxDemo) {
 		blocPopulationMinPercentage = maxDemo;
 	}
 	
-	static public float getVotingMin() {
+	public float getVotingMin() {
 		return blocVotingMinPercentage;
 	}
 	
-	static public void setVotingMin(float minVote) {
+	public void setVotingMin(float minVote) {
 		blocVotingMinPercentage = minVote;
 	}
 	
-	static public float getVotingMax() {
+	public float getVotingMax() {
 		return blocVotingMaxPercentage;
 	}
 	
-	static public void setVotingMax(float maxVote) {
+	public void setVotingMax(float maxVote) {
 		blocVotingMaxPercentage = maxVote;
 	}
 	
-	static public Set<ElectionTerm> getElectionTerms() {
-		return electionTerms;
+	public ElectionTerm getElectionTerm() {
+		return electionTerm;
 	}
+	
  }

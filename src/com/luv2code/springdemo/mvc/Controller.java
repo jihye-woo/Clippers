@@ -18,10 +18,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.luv2code.springdemo.dao.PartyVotesDAO;
 import com.luv2code.springdemo.dao.PrecinctDAO;
+import com.luv2code.springdemo.dao.PrecinctElectionDAO;
 import com.luv2code.springdemo.enumerations.DemographicGroup;
 import com.luv2code.springdemo.enumerations.ElectionTerm;
 import com.luv2code.springdemo.region.Cluster;
+import com.luv2code.springdemo.region.DemographicPopulation;
+import com.luv2code.springdemo.region.PartyVotes;
+import com.luv2code.springdemo.region.PrecinctElection;
 import com.luv2code.springdemo.region.Precincts;
 import com.luv2code.springdemo.region.State;
 
@@ -32,7 +37,13 @@ public class Controller {
 
 	@Autowired
 	private PrecinctDAO precinctDAO;
+	
+	@Autowired
+	private PrecinctElectionDAO precinctElectionDAO;
 
+	@Autowired
+	private PartyVotesDAO partyVotesDAO;
+	
 	public Controller() {
 
 	}
@@ -61,21 +72,18 @@ public class Controller {
 			}
 
 			// get Precincts(stateName : String))
-			Set<Precincts> precicnts = new HashSet<Precincts>();
+			List<Precincts> precincts = precinctDAO.getPrecincts();
 			JSONArray precinctIds = new JSONArray();
 
-			SingletonThreshold.saveThreshold(phase0_population_min, phase0_population_max, phase0_vote_min,
+			SingletonThreshold.getSingletonThreshold().saveThreshold(phase0_population_min, phase0_population_max, phase0_vote_min,
 					phase0_vote_max, electionTerms);
 
-//			for(Precincts p :precicnts) {
-//				boolean isBloc = p.precinctIsBloc();
-//				if(isBloc) {
-//					PrecinctSummary p_summary = (PrecinctSummary) p.toSummary();
-//					int id = p_summary.getPrecinctId();
-////					precicnts_summary.add(p_summary);
-//					precinctIds.add(id);
-//				}
-//			}
+			for(Precincts p : precincts) {
+				if(precinctIsBloc(p)) {
+					return new ResponseEntity<>("State contains bloc precinct!", HttpStatus.OK);
+				}
+			}
+			return new ResponseEntity<>("State does contains bloc precinct!", HttpStatus.OK);
 
 //			returnData.put("precinct_id", precinctIds);
 
@@ -206,7 +214,7 @@ public class Controller {
 	@RequestMapping(value = "/zoom_precinct", method = RequestMethod.POST)
 	public ResponseEntity<String> zoom_precinct(@RequestBody String precinctName) throws IOException {
 //		return new ResponseEntity<>("precinct zoom hello", HttpStatus.CREATED);
-		List<String> precinct_boundary = precinctDAO.getPrecincts();
+		List<String> precinct_boundary = precinctDAO.getPrecinctsBoundaries();
 
 		JSONObject object = new JSONObject();
 		JSONArray array = new JSONArray();
@@ -228,4 +236,43 @@ public class Controller {
 		return new ResponseEntity<>("district zoom hello", HttpStatus.CREATED);
 	}
 
+	public boolean precinctIsBloc(Precincts precinct) {
+		
+		SingletonThreshold singletonThreshold = SingletonThreshold.getSingletonThreshold();
+		Set<DemographicGroup> targetDemographicGroup = singletonThreshold.getTargetPopulation();
+		float demographicMinPerc = singletonThreshold.getDemographicMin();
+		float demographicMaxPerc = singletonThreshold.getDemographicMax();
+		long totalPopulation = precinct.getPopulation();
+		
+		for(DemographicPopulation dg : precinct.getDemographicPopulation()) {
+		
+			long demographicPopulation = dg.getPopulation();
+		
+			if ((demographicPopulation / totalPopulation < demographicMinPerc) ||
+					(demographicPopulation / totalPopulation > demographicMaxPerc))
+				return false;
+		}
+		
+		ElectionTerm electionTerm = singletonThreshold.getElectionTerm();
+		
+		PrecinctElection pe = precinctElectionDAO.getPrecinctElections(precinct.getPrecinctId(), electionTerm);
+		
+		List<PartyVotes> partyVotes = partyVotesDAO.getPartyVotesGivenElection(pe.getElectionId());
+		
+		int totalVotes = 0;
+		
+		for (PartyVotes pv : partyVotes) {
+			totalVotes += pv.getVotes();
+		}
+		
+		int winningVotes = pe.getWinVotes();
+		
+		float votingMinPerc = singletonThreshold.getVotingMin();
+		float votingMaxPerc = singletonThreshold.getVotingMax();
+		
+		if ((winningVotes / totalVotes <  votingMinPerc) || (winningVotes / totalVotes > votingMaxPerc)) {
+			return false;
+		}
+		return true;	
+	}
 }
