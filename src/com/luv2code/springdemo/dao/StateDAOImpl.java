@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.luv2code.springdemo.region.Precincts;
+import com.luv2code.springdemo.region.States;
 
 
 @Repository
@@ -29,8 +30,18 @@ public class StateDAOImpl implements StateDAO {
       
       Query<String> theQuery = currentSession.createQuery("select geoJson from States", String.class);
       List<String> states = theQuery.getResultList();
+      
   
       return states;
    }
+
+@Override
+public States getSingleState(String stateName) {
+	Session currentSession = sessionFactory.getCurrentSession();
+	
+	States state = currentSession.get(States.class, stateName);
+	
+	return state;
+}
 
 }

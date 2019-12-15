@@ -21,10 +21,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.luv2code.springdemo.dao.PartyVotesDAO;
 import com.luv2code.springdemo.dao.PrecinctDAO;
 import com.luv2code.springdemo.dao.PrecinctElectionDAO;
+import com.luv2code.springdemo.dao.StateDAO;
 import com.luv2code.springdemo.enumerations.DemographicGroup;
 import com.luv2code.springdemo.enumerations.ElectionTerm;
 import com.luv2code.springdemo.region.Cluster;
 import com.luv2code.springdemo.region.DemographicPopulation;
+import com.luv2code.springdemo.region.Edge;
 import com.luv2code.springdemo.region.PartyVotes;
 import com.luv2code.springdemo.region.PrecinctElection;
 import com.luv2code.springdemo.region.Precincts;
@@ -43,6 +45,9 @@ public class Controller {
 
 	@Autowired
 	private PartyVotesDAO partyVotesDAO;
+	
+	@Autowired
+	private StateDAO stateDAO;
 	
 	public Controller() {
 
@@ -127,14 +132,14 @@ public class Controller {
 			Float iterationRate = Float.valueOf((String) jsonObject.get("iterationRate"));
 
 			// 2. get into the algorithm
-			if (isResumed) {
-				selectedState = new States(stateName);
-			}
+			
+			selectedState = stateDAO.getSingleState(stateName);
 			
 			clusters = selectedState.initClusters();
+			
 //			
-//			while(clusters.size() >= numDistricts) {
-//				Set<Edge> candidatePairs = selectedState.getMmCandidateEdges(clusters);
+			while(clusters.size() >= numDistricts) {
+				Set<Edge> candidatePairs = selectedState.getMmCandidateEdges(clusters);
 //				Set<Edge> maxAvailablePairs = SetOperation.getMaxMatching(candidatePairs);
 //				Set<Cluster> leftOverClusters;
 //				if(clusters.size()-maxAvailablePairs.size() > numDistricts) {
@@ -147,7 +152,7 @@ public class Controller {
 //					break;
 //				}
 //				
-//			}
+			}
 
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block

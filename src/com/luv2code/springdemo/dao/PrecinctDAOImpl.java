@@ -19,7 +19,6 @@ public class PrecinctDAOImpl implements PrecinctDAO {
    @Autowired
    private SessionFactory sessionFactory;
    
-
    @Override
    @Transactional
    public List<String> getPrecinctsBoundaries() {

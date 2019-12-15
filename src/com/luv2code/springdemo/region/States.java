@@ -1,12 +1,16 @@
 package com.luv2code.springdemo.region;
 
+
+
 import java.util.HashSet;
 import java.util.Set;
 
 import com.luv2code.springdemo.enumerations.ElectionTerm;
+import com.luv2code.springdemo.enumerations.PoliticalParty;
+import com.luv2code.springdemo.mvc.ElectionData;
 import com.luv2code.springdemo.mvc.SetOperation;
 import com.luv2code.springdemo.mvc.SingletonThreshold;
-import com.luv2code.springdemo.summary.StateSummary; 
+import com.luv2code.springdemo.summary.StateSummary;
 
 public class States extends Region {
 	private int stateId;
@@ -28,14 +32,25 @@ public class States extends Region {
 	
 	public Set<Edge> getMmCandidateEdges(Set<Cluster> clusters){
 		Set<Edge> candidateEdges = new HashSet<Edge>();
-		ElectionTerm electionTerms = SingletonThreshold.getElectionTerm();
+		ElectionTerm electionTerm = SingletonThreshold.getElectionTerm();
 		Set<Edge> allEdges = SetOperation.getAllEdges(clusters);
 		
 		for(Edge edge : allEdges) {
 			Cluster firstCluster = edge.getFirstRegion();
 			Cluster secondCluster = edge.getSecondRegion();
+			
+			ElectionData electionData1 = (ElectionData) firstCluster.getElectionData(electionTerm);
+			ElectionData electionData2 = (ElectionData) secondCluster.getElectionData(electionTerm);
+			
+			PoliticalParty p1WinParty = electionData1.getWinningParty();
+			PoliticalParty p2WinParty = electionData2.getWinningParty();
+			
+			if(p1WinParty == p2WinParty) {
+				candidateEdges.add(edge);
+			}
+			
 		}
-		return null;
+		return candidateEdges;
 	}
 
 	
